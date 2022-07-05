@@ -1,2 +1,2 @@
 # SIH-POSHAN
-SIH PROJECT
+This is the repo for SIH PROJECT.
