@@ -1,0 +1,268 @@
+{% extends 'talukas/base.html' %} {% block content %}
+
+<div class="container-fluid">
+  <div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-dark mb-0">Dashboard</h3>
+    <a
+      class="btn btn-primary btn-sm d-none d-sm-inline-block"
+      role="button"
+      href="#"
+      ><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate
+      Report</a
+    >
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow border-start-primary py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col me-2">
+              <div class="text-uppercase text-primary fw-bold text-xs mb-1">
+                <span>total schools&nbsp;</span>
+              </div>
+              <div class="text-dark fw-bold h5 mb-0"><span>715</span></div>
+            </div>
+            <div class="col-auto">
+              <i class="far fa-building fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow border-start-info py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col me-2">
+              <div class="text-uppercase text-info fw-bold text-xs mb-1">
+                <span>Schools with nutritional requisite achieved</span>
+              </div>
+              <div class="row g-0 align-items-center">
+                <div class="col-auto">
+                  <div class="text-dark fw-bold h5 mb-0 me-3">
+                    <span>68%</span>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="progress progress-sm">
+                    <div
+                      class="progress-bar bg-success"
+                      aria-valuenow="68"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style="width: 68%"
+                    >
+                      <span class="visually-hidden">68%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow border-start-success py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col me-2">
+              <div class="text-uppercase text-success fw-bold text-xs mb-1">
+                <span>Weekly meals searved</span>
+              </div>
+              <div class="text-dark fw-bold h5 mb-0"><span>35.4 K</span></div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-fire fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow border-start-warning py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col me-2">
+              <div class="text-uppercase text-warning fw-bold text-xs mb-1">
+                <span>daily scools reported</span>
+              </div>
+              <div class="text-dark fw-bold h5 mb-0"><span>491</span></div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-building fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start: Chart -->
+  <div class="row">
+    <div class="col-lg-7 col-xl-8">
+      <div class="card shadow mb-4">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h6 class="text-primary fw-bold m-0">Students Retained</h6>
+          <div class="dropdown no-arrow">
+            <button
+              class="btn btn-link btn-sm dropdown-toggle"
+              aria-expanded="false"
+              data-bs-toggle="dropdown"
+              type="button"
+            >
+              <i class="fas fa-ellipsis-v text-gray-400"></i>
+            </button>
+            <div
+              class="dropdown-menu shadow dropdown-menu-end animated--fade-in"
+            >
+              <p class="text-center dropdown-header">GrAPH</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas
+              data-bss-chart='{"type":"line","data":{"labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"],"datasets":[{"label":"Retained","fill":true,"data":["31","41","40","49","51","49","56","68","100"],"backgroundColor":"rgba(78, 115, 223, 0.05)","borderColor":"rgba(78, 115, 223, 1)"}]},"options":{"maintainAspectRatio":false,"legend":{"display":false,"labels":{"fontStyle":"normal"}},"title":{"fontStyle":"normal"},"scales":{"xAxes":[{"gridLines":{"color":"rgb(234, 236, 244)","zeroLineColor":"rgb(234, 236, 244)","drawBorder":false,"drawTicks":false,"borderDash":["2"],"zeroLineBorderDash":["2"],"drawOnChartArea":false},"ticks":{"fontColor":"#858796","fontStyle":"normal","beginAtZero":true,"padding":20}}],"yAxes":[{"gridLines":{"color":"rgb(234, 236, 244)","zeroLineColor":"rgb(234, 236, 244)","drawBorder":false,"drawTicks":false,"borderDash":["2"],"zeroLineBorderDash":["2"]},"ticks":{"fontColor":"#858796","fontStyle":"normal","beginAtZero":true,"padding":20}}]}}}'
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 col-xl-4">
+      <div class="card shadow mb-4">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h6 class="text-primary fw-bold m-0">BMI</h6>
+          <div class="dropdown no-arrow">
+            <button
+              class="btn btn-link btn-sm dropdown-toggle"
+              aria-expanded="false"
+              data-bs-toggle="dropdown"
+              type="button"
+            >
+              <i class="fas fa-ellipsis-v text-gray-400"></i>
+            </button>
+            <div
+              class="dropdown-menu shadow dropdown-menu-end animated--fade-in"
+            >
+              <p class="text-center dropdown-header">BMI</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-area" style="--bs-success-rgb: 200, 59, 28">
+            <canvas
+              data-bss-chart='{"type":"doughnut","data":{"labels":["Overweight","Healthy","Underweight"],"datasets":[{"label":"","backgroundColor":["#4e73df","#1cc88a","#36b9cc"],"borderColor":["#ffffff","#ffffff","#ffffff"],"data":["50","30","15"]}]},"options":{"maintainAspectRatio":false,"legend":{"display":false,"labels":{"fontStyle":"normal"},"reverse":false},"title":{"fontStyle":"normal","display":false}}}'
+            ></canvas>
+          </div>
+          <div class="text-center small mt-4">
+            <span class="me-2"
+              ><i class="fas fa-circle text-primary"></i>Overweight</span
+            ><span class="me-2"
+              ><i class="fas fa-circle text-success"></i>Healthy</span
+            ><span class="me-2"
+              ><i class="fas fa-circle text-info"></i>Underweight</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End: Chart -->
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="text-primary fw-bold m-0">
+            Top 5 Schools (based on student retention)
+          </h6>
+        </div>
+        <div class="card-body">
+          <h4 class="small fw-bold">
+            Thane Municipal Corporation School (61), Thane<span
+              class="float-end"
+              >82%</span
+            >
+          </h4>
+          <div class="progress mb-4">
+            <div
+              class="progress-bar bg-success"
+              aria-valuenow="82"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 82%"
+            >
+              <span class="visually-hidden">82%</span>
+            </div>
+          </div>
+          <h4 class="small fw-bold">
+            St. Xavier's High School, Airoli<span class="float-end">74%</span>
+          </h4>
+          <div class="progress mb-4">
+            <div
+              class="progress-bar bg-info"
+              aria-valuenow="74"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 74%"
+            >
+              <span class="visually-hidden">74%</span>
+            </div>
+          </div>
+          <h4 class="small fw-bold">
+            Zilla Parishad Primary School, Dighe<span class="float-end"
+              >71%</span
+            >
+          </h4>
+          <div class="progress mb-4">
+            <div
+              class="progress-bar bg-primary"
+              aria-valuenow="71"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 71%"
+            >
+              <span class="visually-hidden">71%</span>
+            </div>
+          </div>
+          <h4 class="small fw-bold">
+            Lok Puram Public School, Thane<span class="float-end">68%</span>
+          </h4>
+          <div class="progress mb-4">
+            <div
+              class="progress-bar bg-warning"
+              aria-valuenow="68"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 68%"
+            >
+              <span class="visually-hidden">68%</span>
+            </div>
+          </div>
+          <h4 class="small fw-bold">
+            D.A.V. Public School, Thane<span class="float-end">64%</span>
+          </h4>
+          <div class="progress mb-4">
+            <div
+              class="progress-bar bg-danger"
+              aria-valuenow="64"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 64%"
+            >
+              <span class="visually-hidden">64%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

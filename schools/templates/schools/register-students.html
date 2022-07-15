@@ -1,0 +1,58 @@
+{% extends 'schools/base.html' %} 
+
+{% block title %}404{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <form>
+        <!-- Start: Registration Form -->
+        <div class="card shadow-lg o-hidden border-0 my-5">
+            <div class="card-body p-0">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 class="text-dark mb-4">Create a New Student!</h4>
+                                <hr>
+                            </div>
+                            <form class="user">
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName-1" placeholder="First Name" name="first_name" required=""></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName-2" placeholder="Last Name" name="last_name" required=""></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName-5" placeholder="Mother's Name" name="first_name" required=""></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName-6" placeholder="Father's Name" name="last_name" required=""></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName-7" placeholder="G.R. No." name="first_name" required=""></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName-8" placeholder="Roll No." name="last_name" required=""></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><label class="col-form-label form-control-user" style="font-weight: bold;">Date of Birth</label></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="date" required=""></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><label class="col-form-label form-control-user" style="font-weight: bold;">Class</label></div>
+                                    <div class="col-sm-6"><select class="form-select form-control-user" required="">
+                                            <option value="1A">Class 1A</option>
+                                            <option value="1A">Class 1B</option>
+                                            <option value="1C">Class 1C</option>
+                                        </select></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName-3" placeholder="Height" name="first_name" required="" inputmode="numeric"></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName-4" placeholder="Weight" name="last_name" required="" inputmode="numeric" pattern="[+-]?([0-9]*[.])?[0-9]+"></div>
+                                </div><button class="btn btn-primary d-block btn-user w-100" type="submit">Register Student</button>
+                                <hr>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End: Registration Form -->
+    </form>
+</div>
+
+{% endblock content %}

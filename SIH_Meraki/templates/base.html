@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Title Page{% endblock title %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+    <h1 class="text-center">This is the home page.</h1>
+
+
+    <div class="container">
+
+        {% if user.is_authenticated %}
+        <hr>
+        <br>
+        <a href="{% url 'accounts:logout' %}">
+            <button type="button" style="width: 100%;" class="btn btn-danger">Logout</button>
+        </a>
+        <br>
+        <hr>
+        <br>
+        <h3>User <b>{{user.username}}</b> is Logged in</h3>
+        {% else %}
+        <hr>
+        <br>
+        <a href="{% url 'accounts:login' %}">
+            <button type="button" style="width: 100%;" class="btn btn-success">Login</button>
+        </a>
+        <br>
+        <hr>
+        <br>
+        <h3>User is not Logged in</h3>
+        {% endif %}
+
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
+
+
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+{% extends 'schools/base.html' %}
+{% block title %}Meal Details{% endblock title%} 
+{% block content %}
+
+<div class="container-fluid">
+  <div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- {{ form.as_p }} -->
+      <!-- Start: Registration Form -->
+      <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+          <div class="row justify-content-center">
+            <div class="col-lg-7">
+              <div class="p-5">
+                <div class="text-center">
+                  <h4 class="text-dark mb-4">Upload Mid-Day Meal Details</h4>
+                  <hr />
+                </div>
+                <form class="user">
+                  <div class="mb-3">
+                    <div class="row">
+                      <div class="col-4">
+
+                        <label
+                          class="col-form-label form-control-user"
+                          style="font-weight: bold"
+                          >{{form.date.label}}</label
+                        >
+                      </div>
+                      <div class="col-8">
+                        {{form.date}}
+                        <script>
+                          var xyz = document.querySelector("#id_date");
+                          xyz.className += " form-control form-control-user";
+                          xyz.type = "date";
+                        </script>
+
+                        <!-- <input class="form-control form-control-user" type="date" required=""> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+
+                    {{form.name}}
+                    <script>
+                        var xyz = document.querySelector("#id_name");
+                        xyz.className += " form-control form-control-user";
+                        xyz.type = "text";
+                        xyz.placeholder = "Meal Name";
+                      </script>
+
+                    <!-- <input
+                      class="form-control form-control-user"
+                      type="text"
+                      id="exampleFirstName-2"
+                      placeholder="Meal Name"
+                      name="first_name"
+                      required=""
+                    /> -->
+                  </div>
+                  <div class="mb-3">
+
+                    {{form.meal_pic}}
+                    <script>
+                        var xyz = document.querySelector("#id_meal_pic");
+                        xyz.className += " form-control";
+                        xyz.type = "file";
+                      </script>
+
+                    <!-- <input type="file" class="form-control" id="customFile" /> -->
+
+
+                  </div>
+                  <div class="row mb-3">
+
+
+                    <button
+                      class="btn btn-primary d-block btn-user w-100"
+                      type="submit"
+                    >
+                      Upload Image
+                    </button>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                      <input
+                        class="form-control form-control-user"
+                        type="text"
+                        id="exampleFirstName-4"
+                        placeholder="Calories"
+                        name="first_name"
+                        required=""
+                      />
+                    </div>
+                    <div class="col-sm-6">
+                      <input
+                        class="form-control form-control-user"
+                        type="text"
+                        id="exampleFirstName-5"
+                        placeholder="Proteins"
+                        name="last_name"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <button
+                      class="btn btn-success link-light d-block btn-user w-100"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End: Registration Form -->
+    </form>
+  </div>
+  <div></div>
+</div>
+
+{% endblock content %}
