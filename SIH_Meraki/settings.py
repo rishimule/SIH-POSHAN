@@ -38,19 +38,20 @@ runserver.default_port = '8080'
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts',
-    'schools',
-    'talukas',
-    'districts',
-    'states',
-    'national',
-    'bootstrap4',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'national',
+    'states',
+    'districts',
+    'talukas',
+    'schools',
+    'bootstrap4',
     
 ]
 
@@ -106,7 +107,7 @@ DATABASES = {
     
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sihdjangodb',
+        'NAME': 'djangodbsih',
         'USER': 'sihdjangoadmin',
         'PASSWORD': 'Te@mMerak1',
         'HOST': '43.204.48.247',

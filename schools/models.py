@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import RegexValidator
-
+from talukas.models import Taluka
 import os
 
 def _(something):
@@ -25,25 +25,24 @@ def std_choices():
 
 def rename_upload_image_school_profile(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "profile/school/%s/%s/%s.%s.%s" % (instance.user, instance.school_name, instance.udise_code, filename, ext)
+    filename = "profile/school/%s/%s/%s.%s.%s" % (instance.user, instance.name, instance.udise_code, filename, ext)
     return os.path.join('images/', filename)
 
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school_name = models.CharField(max_length=150)
+    name = models.CharField(max_length=150)
     udise_code = models.CharField(max_length=150, unique=True)
     profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_school_profile)
     # ADDRESS
     address_line1 = models.CharField( max_length=250)
     address_line2 = models.CharField( max_length=250)
     pincode = models.PositiveIntegerField()
-    district = models.CharField(max_length=50)
-    state = models.CharField(max_length=150)
+    taluka = models.ForeignKey(Taluka, on_delete=models.CASCADE)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
                                 )
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # Validators should be a list
+    contact_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # Validators should be a list
     
     
     class Meta:
@@ -51,7 +50,7 @@ class School(models.Model):
         verbose_name_plural = "schools"
 
     def __str__(self):
-        return self.school_name
+        return self.name
 
     def get_absolute_url(self):
         return reverse("school_detail", kwargs={"pk": self.pk})
