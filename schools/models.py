@@ -154,9 +154,6 @@ class Meal(models.Model):
     def get_absolute_url(self):
         return reverse("meal_detail", kwargs={"pk": self.pk})
 
-
-
-
 class Attendence(models.Model):
 
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
