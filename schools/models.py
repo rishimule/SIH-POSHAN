@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.core.validators import RegexValidator
+
 import os
 
 def _(something):
@@ -21,19 +23,27 @@ def std_choices():
     choices.extend([(r,r) for r in range(1,9)])
     return choices
 
+def rename_upload_image_school_profile(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "profile/school/%s/%s/%s.%s.%s" % (instance.user, instance.school_name, instance.udise_code, filename, ext)
+    return os.path.join('images/', filename)
+
 
 class School(models.Model):
-    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     school_name = models.CharField(max_length=150)
     udise_code = models.CharField(max_length=150, unique=True)
-    
+    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_school_profile)
     # ADDRESS
     address_line1 = models.CharField( max_length=250)
     address_line2 = models.CharField( max_length=250)
     pincode = models.PositiveIntegerField()
     district = models.CharField(max_length=50)
     state = models.CharField(max_length=150)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+                                )
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # Validators should be a list
     
     
     class Meta:
@@ -68,6 +78,10 @@ class Class(models.Model):
 
 # Create your models here.
 class Student(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    	)
 
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
@@ -76,6 +90,7 @@ class Student(models.Model):
     dob = models.DateField()
     current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     gr_no = models.CharField(max_length=50)
+    gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
     current_height = models.FloatField(blank=True, null=True)
     current_weight = models.FloatField(blank=True, null=True)
     # age = models.IntegerField(blank=True, null=True)
@@ -111,7 +126,7 @@ class Student(models.Model):
         return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
-def rename_upload_image(instance, filename):
+def rename_upload_image_meals(instance, filename):
     ext = filename.split('.')[-1]
     filename = "meals/%s/%s/%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename, ext)
     return os.path.join('images/', filename)
@@ -121,7 +136,7 @@ class Meal(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     name = models.CharField("Meal Name",max_length=150)
     date = models.DateField(default=timezone.now, blank=False, null=False)
-    meal_pic= models.ImageField(blank=False, upload_to=rename_upload_image)
+    meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
 
