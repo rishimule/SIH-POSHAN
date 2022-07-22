@@ -38,12 +38,6 @@ runserver.default_port = '8080'
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
     'accounts',
     'schools',
     'talukas',
@@ -51,6 +45,13 @@ INSTALLED_APPS = [
     'states',
     'national',
     'bootstrap4',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
