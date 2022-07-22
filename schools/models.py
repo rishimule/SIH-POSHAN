@@ -63,7 +63,6 @@ class Class(models.Model):
     year = models.IntegerField(choices=year_choices(), default=current_year)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
 
-
     class Meta:
         verbose_name = "class"
         verbose_name_plural = "clases"
@@ -79,8 +78,8 @@ class Class(models.Model):
 # Create your models here.
 class Student(models.Model):
     GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
+        ('Male', 'Male'),
+        ('Female', 'Female'),
     	)
 
     first_name = models.CharField(max_length=150)
