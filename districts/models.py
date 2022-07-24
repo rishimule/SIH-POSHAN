@@ -20,7 +20,7 @@ def rename_upload_image_district_profile(instance, filename):
     return os.path.join('images/', filename)
 
 class District(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='districts')
     name = models.CharField(max_length=150)
     profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_district_profile)
     address_line1 = models.CharField( max_length=250)

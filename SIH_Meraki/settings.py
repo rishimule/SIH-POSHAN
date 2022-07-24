@@ -105,24 +105,24 @@ DATABASES = {
     #     'PORT': '3306',
     # }
     
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sihdb',
-        'USER': 'postgres',
-        'PASSWORD': '9223320271',
-        'HOST': '13.232.44.46',
-        'PORT': '58945',
-    }
-    
-    
     # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'djangodbsih',
-    #     'USER': 'sihdjangoadmin',
-    #     'PASSWORD': 'Te@mMerak1',
-    #     'HOST': '43.204.48.247',
-    #     'PORT': '59818',
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'sihdb',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '9223320271',
+    #     'HOST': '13.232.44.46',
+    #     'PORT': '58945',
     # }
+    
+    
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangodbsih',
+        'USER': 'sihdjangoadmin',
+        'PASSWORD': 'Te@mMerak1',
+        'HOST': '43.204.48.247',
+        'PORT': '59818',
+    }
 
 }
 

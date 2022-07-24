@@ -30,7 +30,7 @@ def rename_upload_image_school_profile(instance, filename):
 
 
 class School(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='schools')
     name = models.CharField(max_length=150)
     udise_code = models.CharField(max_length=150, unique=True)
     profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_school_profile)
