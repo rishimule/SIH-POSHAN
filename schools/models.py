@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.core.validators import RegexValidator
 from talukas.models import Taluka
 import os
+from django.contrib.auth.models import Group
 
 def _(something):
     return something
@@ -54,6 +55,13 @@ class School(models.Model):
 
     def get_absolute_url(self):
         return reverse("school_detail", kwargs={"pk": self.pk})
+    
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        my_group = Group.objects.get(name='schools') 
+        my_group.user_set.add(self.user)
+        print(self.user)
+        return super(School, self).save(*args, **kwargs)
 
 class Class(models.Model):
 

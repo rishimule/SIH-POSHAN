@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'SIH_Meraki.wsgi.application'
 
 DATABASES = {
 
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -115,14 +115,14 @@ DATABASES = {
     # }
     
     
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'djangodbsih',
-        'USER': 'sihdjangoadmin',
-        'PASSWORD': 'Te@mMerak1',
-        'HOST': '43.204.48.247',
-        'PORT': '59818',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'djangodbsih',
+    #     'USER': 'sihdjangoadmin',
+    #     'PASSWORD': 'Te@mMerak1',
+    #     'HOST': '43.204.48.247',
+    #     'PORT': '59818',
+    # }
 
 }
 

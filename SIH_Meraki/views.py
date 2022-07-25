@@ -15,4 +15,10 @@ def indexview(request):
             
             if group.name=="talukas":
                 return HttpResponseRedirect(reverse('talukas:dashboard'))
+            
+            if group.name=="states":
+                return HttpResponseRedirect(reverse('states:dashboard'))
+            
+            if group.name=="district":
+                return HttpResponseRedirect(reverse('districts:dashboard'))
     return render(request, 'index.html')

@@ -16,7 +16,7 @@ def _(something):
 
 def rename_upload_image_district_profile(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "profile/district/%s/%s/%s.%s.%s" % (instance.user, instance.name, filename, ext)
+    filename = "profile/district/%s/%s/%s.%s" % (instance.user, instance.name, filename, ext)
     return os.path.join('images/', filename)
 
 class District(models.Model):
