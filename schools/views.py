@@ -1,10 +1,13 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
-from .forms import ClassForm, MealForm
+from .forms import ClassForm, MealForm,StudentForm
 from django.utils import timezone
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView
+from .models import Student,Class,School, Meal, Attendence
+from django.urls import reverse, reverse_lazy
+
 
 
 
@@ -12,6 +15,10 @@ from django.views.generic import TemplateView, CreateView, ListView
 @user_passes_test(is_in_group_schools) 
 def dashboardView(request):
     return  render(request, 'schools/index.html')
+
+@user_passes_test(is_in_group_schools) 
+def registerStudentsView(request):
+    return  render(request, 'schools/register-students.html')
 
 @user_passes_test(is_in_group_schools) 
 def profileView(request):
@@ -24,10 +31,6 @@ def attendenceView(request):
 @user_passes_test(is_in_group_schools) 
 def studentDetailsView(request):
     return  render(request, 'schools/blank.html')
-
-@user_passes_test(is_in_group_schools) 
-def registerStudentsView(request):
-    return  render(request, 'schools/register-students.html')
 
 def createClassView(request):
     if request.method == "POST":
@@ -60,4 +63,12 @@ def todaysMealView(request):
     return render(request, 'schools/todays-meal.html', {'form': form})
 
 
-class ModelView(TemplateView):
+class StudentCreateView(CreateView):
+    model = Student
+    form_class = StudentForm
+    template_name = "schools/register_new_students.html"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['current_class'].queryset = self.request.user.schools.classes.all()
+        return form

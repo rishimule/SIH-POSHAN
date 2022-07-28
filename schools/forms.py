@@ -12,6 +12,7 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ("__all__")
+        # exclude = ('current_class')
 
 class MealForm(forms.ModelForm):
     

@@ -39,7 +39,7 @@ class School(models.Model):
     address_line1 = models.CharField( max_length=250)
     address_line2 = models.CharField( max_length=250)
     pincode = models.PositiveIntegerField()
-    taluka = models.ForeignKey(Taluka, on_delete=models.CASCADE)
+    taluka = models.ForeignKey(Taluka, on_delete=models.CASCADE, related_name='schools')
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
                                 )
@@ -68,7 +68,7 @@ class Class(models.Model):
     class_std = models.IntegerField(choices=std_choices())
     class_name = models.CharField(max_length=50, unique=True)
     year = models.IntegerField(choices=year_choices(), default=current_year)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE,related_name='classes')
 
     class Meta:
         verbose_name = "class"
@@ -94,9 +94,9 @@ class Student(models.Model):
     mother_name = models.CharField(max_length=150, blank=True, null=True)
     father_name = models.CharField(max_length=150, blank=True, null=True)
     dob = models.DateField()
-    current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    current_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='students')
     gr_no = models.CharField(max_length=50)
-    gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=100, choices=GENDER_CHOICES, blank=False, default=0)
     current_height = models.FloatField(blank=True, null=True)
     current_weight = models.FloatField(blank=True, null=True)
     # age = models.IntegerField(blank=True, null=True)
