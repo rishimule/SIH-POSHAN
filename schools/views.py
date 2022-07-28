@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
 from .forms import ClassForm, MealForm
 from django.utils import timezone
+from django.views.generic import TemplateView, CreateView, ListView
+
 
 
 # Create your views here.
@@ -57,3 +59,5 @@ def todaysMealView(request):
         form = MealForm()
     return render(request, 'schools/todays-meal.html', {'form': form})
 
+
+class ModelView(TemplateView):
