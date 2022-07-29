@@ -6,3 +6,4 @@ db.sqlite3
 .gitignore
 groom.manifest
 # media/*
+staticfiles/*
