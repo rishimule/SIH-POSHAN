@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import RegexValidator
 from talukas.models import Taluka
+from districts.models import District
 import os
 from django.contrib.auth.models import Group
 
@@ -39,7 +40,7 @@ class School(models.Model):
     address_line1 = models.CharField( max_length=250)
     address_line2 = models.CharField( max_length=250)
     pincode = models.PositiveIntegerField()
-    taluka = models.ForeignKey(Taluka, on_delete=models.CASCADE, related_name='schools')
+    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name='schools')
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
                                 )
