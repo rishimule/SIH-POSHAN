@@ -18,6 +18,6 @@ class MealForm(forms.ModelForm):
     
     class Meta:
         model = Meal
-        fields = ("school","name", "date", "meal_pic")
+        fields = ("__all__")
 
 

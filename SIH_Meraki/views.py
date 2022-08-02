@@ -1,6 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.generic import TemplateView
+
+class PlaceholderView(TemplateView):
+    template_name = "placeholder.html"
+
+
+
 
 
 def indexview(request):
@@ -17,7 +24,7 @@ def indexview(request):
                 return HttpResponseRedirect(reverse('talukas:dashboard'))
             
             if group.name=="states":
-                return HttpResponseRedirect(reverse('states:dashboard'))
+                return HttpResponseRedirect(reverse('placeholder'))
             
             if group.name=="district":
                 return HttpResponseRedirect(reverse('districts:dashboard'))

@@ -1,0 +1,25 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placeholder</title>
+</head>
+
+<body>
+    <h1>This is the Placeholder Page</h1>
+    <h2><a class="card-link" href="/">Home</a></h2>
+    <h2><a class="card-link" href="/accounts/logout">Logout</a></h2>
+    <h2><a class="card-link" href="/accounts/login">Login</a></h2>
+    <p>
+        <ul>
+            <li>
+                {{user.username}}
+            </li>
+        </ul>
+    </p>
+</body>
+
+</html>

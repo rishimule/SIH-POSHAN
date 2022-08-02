@@ -28,7 +28,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.indexview, name='home'),
+    path('placeholder', views.PlaceholderView.as_view(), name='placeholder'),
+    
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('states/', include('states.urls', namespace='states')),
     path('schools/', include('schools.urls', namespace='schools')),
     path('talukas/', include('talukas.urls', namespace='talukas')),
     

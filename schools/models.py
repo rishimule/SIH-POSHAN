@@ -8,6 +8,7 @@ from talukas.models import Taluka
 from districts.models import District
 import os
 from django.contrib.auth.models import Group
+from slugify import slugify
 
 def _(something):
     return something
@@ -33,6 +34,7 @@ def rename_upload_image_school_profile(instance, filename):
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='schools')
+    email = models.EmailField( max_length=254)
     name = models.CharField(max_length=150)
     udise_code = models.CharField(max_length=150, unique=True)
     profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_school_profile)
@@ -59,6 +61,10 @@ class School(models.Model):
     
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
+        
+        u = self.user
+        u.email = self.email
+        u.save()
         my_group = Group.objects.get(name='schools') 
         my_group.user_set.add(self.user)
         print(self.user)
@@ -136,7 +142,7 @@ class Student(models.Model):
 def rename_upload_image_meals(instance, filename):
     ext = filename.split('.')[-1]
     filename = "meals/%s/%s/%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename, ext)
-    return os.path.join('images/', filename)
+    return slugify(os.path.join('images/', filename))
 
 class Meal(models.Model):
 
@@ -152,12 +158,8 @@ class Meal(models.Model):
         verbose_name_plural = _("meals")
         unique_together = ('school','date')
 
-    
-    def upload_image(self, filename):
-        return 'post/{}/{}'.format(self.title, filename)
-    
     def __str__(self):
-        return f"{self.name} ({self.date}) ({self.school.school_name})"
+        return f"{self.name} ({self.date}) ({self.school.name})"
 
     def get_absolute_url(self):
         return reverse("meal_detail", kwargs={"pk": self.pk})

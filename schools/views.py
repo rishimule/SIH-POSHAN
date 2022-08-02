@@ -50,17 +50,34 @@ def createClassView(request):
 def todaysMealView(request):
     
     if request.method == "POST":
-        form = MealForm(request.POST,  request.FILES)
+        print('1....happened')
+        form = MealForm(request.POST, request.FILES)
+        print(form)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
+            print('Form is valid........')
             post.save()
             return redirect('schools:dashboard', pk=post.pk)  
     
     else:
+        print('Error occured.....')
         form = MealForm()
-    return render(request, 'schools/todays-meal.html', {'form': form})
+        
+    return render(request, 'schools/todays-meal2.html', {'form': form})
+
+
+class MealCreateView(CreateView):
+    model = Meal
+    fields = '__all__'
+    template_name = "schools/todays-meal.html"
+    success_url: reverse_lazy('schools:dashboard')
+    
+    def form_valid(self, form):
+        form.instance.school = self.request.user.schools
+        print('this validity')
+        return super().form_valid(form)
+
+
 
 
 class StudentCreateView(CreateView):
