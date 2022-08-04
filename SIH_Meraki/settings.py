@@ -182,8 +182,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 # config/settings.py
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 
 MEDIA_URL = "/media/"
