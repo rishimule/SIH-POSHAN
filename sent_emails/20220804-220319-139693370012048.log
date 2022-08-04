@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password Change Request @ SIH
+From: webmaster@localhost
+To: rishi@gmail.com
+Date: Thu, 04 Aug 2022 16:33:19 -0000
+Message-ID: <165963079900.12211.15081892120419711389@goorm>
+
+
+You're receiving this email because you requested a password reset for your user account at {{
+site_name }}.
+
+Please go to the following page and choose a new password:
+
+http://sih-django.run-ap-south1.goorm.io/accounts/password_reset_MQ_b9njxj-ee1369a4e770be61be80c2ec05d1d698/
+
+Your username, in case you’ve forgotten: rishi
+
+Thanks for using our site!
+
+The sih-django.run-ap-south1.goorm.io team
+
+
+-------------------------------------------------------------------------------
