@@ -53,4 +53,4 @@ class District(models.Model):
         my_group = Group.objects.get(name='districts') 
         my_group.user_set.add(self.user)
         print(self.user)
-        return super(State, self).save(*args, **kwargs)
+        return super(District, self).save(*args, **kwargs)
