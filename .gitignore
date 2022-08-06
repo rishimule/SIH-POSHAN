@@ -3,8 +3,7 @@ db.sqlite3
 */__pycache__/*
 */migrations/*
 .vscode/*
-.gitignore
 groom.manifest
-# media/*
 staticfiles/*
 *.out
+

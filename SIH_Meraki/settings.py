@@ -180,12 +180,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'
 
-# config/settings.py
-if DEBUG:
+
+
+# Email Settings section
+# https://docs.djangoproject.com/en/4.0/topics/email/#topic-email-file-backend
+
+USE_REAL_EMAIL_GMAIL = True
+
+if USE_REAL_EMAIL_GMAIL:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'sih.team.merakii@gmail.com'
+    EMAIL_HOST_PASSWORD = 'kopsbkdwqhpemuio'
+
+if DEBUG and not USE_REAL_EMAIL_GMAIL:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
     EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / 'media'
+    
+    
+    
+    
