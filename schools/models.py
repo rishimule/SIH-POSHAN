@@ -7,11 +7,33 @@ from django.core.validators import RegexValidator
 from talukas.models import Taluka
 from districts.models import District
 import os
+import re
 from django.contrib.auth.models import Group
 from slugify import slugify
 
 def _(something):
     return something
+
+
+def get_current_datetime():
+    """Returns alphanumeric datetime.
+
+    Returns:
+        str: alphanumeric DateTime
+    """     
+    return make_to_alphanumeric(datetime.now())
+
+def make_to_alphanumeric(mystr):
+    """Make a string in form of alphanumeric. 
+
+    Args:
+        mystr (str): String or something that can be converted to string
+
+    Returns:
+        str: alphanumeric output str
+    """
+    return re.sub('[\W_]+', '', str(mystr))
+
 
 def year_choices():
     choices = [(r,r) for r in reversed(range(1990, timezone.now().year+2))]
@@ -28,8 +50,8 @@ def std_choices():
 
 def rename_upload_image_school_profile(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "profile/school/%s/%s/%s.%s.%s" % (instance.user, instance.name, instance.udise_code, filename, ext)
-    return os.path.join('images/', filename)
+    filename = "profile/school/%s/%s/%s.%s.%s.%s" % (instance.user, instance.name, instance.udise_code, filename, get_current_datetime(), ext)
+    return slugify(os.path.join('images/', filename))
 
 
 class School(models.Model):
@@ -54,7 +76,7 @@ class School(models.Model):
         verbose_name_plural = "schools"
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - ({self.district})"
 
     def get_absolute_url(self):
         return reverse("school_detail", kwargs={"pk": self.pk})
@@ -71,7 +93,6 @@ class School(models.Model):
         return super(School, self).save(*args, **kwargs)
 
 class Class(models.Model):
-
     class_std = models.IntegerField(choices=std_choices())
     class_name = models.CharField(max_length=50, unique=True)
     year = models.IntegerField(choices=year_choices(), default=current_year)
@@ -83,13 +104,12 @@ class Class(models.Model):
         unique_together = ('class_name', 'year', 'school')
 
     def __str__(self):
-        return self.class_name
+        return f"{self.class_name} - ({self.school})"
 
     def get_absolute_url(self):
         return reverse("class_detail", kwargs={"pk": self.pk})
 
 
-# Create your models here.
 class Student(models.Model):
     GENDER_CHOICES = (
         ('Male', 'Male'),
@@ -116,7 +136,7 @@ class Student(models.Model):
         unique_together = ('current_class', 'gr_no',)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.gr_no})"
+        return f"{self.first_name} {self.last_name} ({self.gr_no}) ({self.current_class})"
 
     def get_absolute_url(self):
         return reverse("student_detail", kwargs={"pk": self.pk})
@@ -141,11 +161,10 @@ class Student(models.Model):
 
 def rename_upload_image_meals(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "meals/%s/%s/%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename, ext)
+    filename = "meals/%s/%s/%s.%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename,get_current_datetime(), ext)
     return slugify(os.path.join('images/', filename))
 
 class Meal(models.Model):
-
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     name = models.CharField("Meal Name",max_length=150)
     date = models.DateField(default=timezone.now, blank=False, null=False)
@@ -165,7 +184,6 @@ class Meal(models.Model):
         return reverse("meal_detail", kwargs={"pk": self.pk})
 
 class Attendence(models.Model):
-
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
