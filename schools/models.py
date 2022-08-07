@@ -14,7 +14,6 @@ from slugify import slugify
 def _(something):
     return something
 
-
 def get_current_datetime():
     """Returns alphanumeric datetime.
 
@@ -34,7 +33,6 @@ def make_to_alphanumeric(mystr):
     """
     return re.sub('[\W_]+', '', str(mystr))
 
-
 def year_choices():
     choices = [(r,r) for r in reversed(range(1990, timezone.now().year+2))]
     # choices = choices.reverse()
@@ -52,7 +50,6 @@ def rename_upload_image_school_profile(instance, filename):
     ext = filename.split('.')[-1]
     filename = "profile/school/%s/%s/%s.%s.%s.%s" % (instance.user, instance.name, instance.udise_code, filename, get_current_datetime(), ext)
     return slugify(os.path.join('images/', filename))
-
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='schools')
@@ -109,7 +106,6 @@ class Class(models.Model):
     def get_absolute_url(self):
         return reverse("class_detail", kwargs={"pk": self.pk})
 
-
 class Student(models.Model):
     GENDER_CHOICES = (
         ('Male', 'Male'),
@@ -157,7 +153,6 @@ class Student(models.Model):
         born = self.dob
         today = timezone.now()
         return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-
 
 def rename_upload_image_meals(instance, filename):
     ext = filename.split('.')[-1]
