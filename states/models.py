@@ -6,9 +6,8 @@ from django.utils import timezone
 from django.core.validators import RegexValidator
 import os
 from django.contrib.auth.models import Group
-
-
-
+from merakiiextras.common import get_current_datetime
+from slugify import slugify
 
 # Create your models here.
 
@@ -17,8 +16,8 @@ def _(something):
 
 def rename_upload_image_state_profile(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "profile/state/%s/%s/%s.%s" % (instance.user, instance.name, filename, ext)
-    return os.path.join('images/', filename)
+    filename = "profile/state/%s/%s/%s.%s.%s" % (instance.user, instance.name, filename, get_current_datetime(),ext)
+    return slugify(os.path.join('images/', filename))
 
 class State(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='states')

@@ -7,7 +7,8 @@ from django.core.validators import RegexValidator
 from states.models import State
 import os
 from django.contrib.auth.models import Group
-
+from merakiiextras.common import get_current_datetime
+from slugify import slugify
 
 
 
@@ -18,8 +19,8 @@ def _(something):
 
 def rename_upload_image_district_profile(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "profile/district/%s/%s/%s.%s" % (instance.user, instance.name, filename, ext)
-    return os.path.join('images/', filename)
+    filename = "profile/district/%s/%s/%s.%s.%s" % (instance.user, instance.name, filename, get_current_datetime(), ext)
+    return slugify(os.path.join('images/', filename))
 
 class District(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='districts')
