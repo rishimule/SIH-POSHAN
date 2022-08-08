@@ -13,7 +13,7 @@ def dashboardView(request):
 def profileView(request):
     return  render(request, 'talukas/profile.html')
 
-@user_passes_test(is_in_group_talukas) 
+# @user_passes_test(is_in_group_talukas) 
 def registerSchoolsView(request):
     return  render(request, 'talukas/register-school.html')
 

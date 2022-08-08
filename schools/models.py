@@ -10,28 +10,10 @@ import os
 import re
 from django.contrib.auth.models import Group
 from slugify import slugify
+from merakiiextras.common import get_current_datetime
 
 def _(something):
     return something
-
-def get_current_datetime():
-    """Returns alphanumeric datetime.
-
-    Returns:
-        str: alphanumeric DateTime
-    """     
-    return make_to_alphanumeric(datetime.now())
-
-def make_to_alphanumeric(mystr):
-    """Make a string in form of alphanumeric. 
-
-    Args:
-        mystr (str): String or something that can be converted to string
-
-    Returns:
-        str: alphanumeric output str
-    """
-    return re.sub('[\W_]+', '', str(mystr))
 
 def year_choices():
     choices = [(r,r) for r in reversed(range(1990, timezone.now().year+2))]
@@ -156,12 +138,12 @@ class Student(models.Model):
 
 def rename_upload_image_meals(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "meals/%s/%s/%s.%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename,get_current_datetime(), ext)
+    filename = "meals/%s/%s/%s.%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename, get_current_datetime(), ext)
     return os.path.join('images/', filename)
 
 class Meal(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-    name = models.CharField("Meal Name",max_length=150)
+    name = models.CharField("Meal Name",max_length=999)
     date = models.DateField(default=timezone.now, blank=False, null=False)
     meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
     calories = models.FloatField(blank=True, null=True)
