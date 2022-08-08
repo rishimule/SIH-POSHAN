@@ -5,7 +5,8 @@ class ClassForm(forms.ModelForm):
     
     class Meta:
         model = Class
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['school']
 
 class StudentForm(forms.ModelForm):
     

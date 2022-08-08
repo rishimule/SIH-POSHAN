@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
 from .forms import ClassForm, MealForm,StudentForm
 from django.utils import timezone
-from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView
+from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from .models import Student,Class,School, Meal, Attendence
 from django.urls import reverse, reverse_lazy
 
@@ -37,14 +37,21 @@ def createClassView(request):
         form = ClassForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
+            # post.author = request.user
+            # post.published_date = timezone.now()
             post.save()
             return redirect('schools:dashboard', pk=post.pk)  
     
     else:
         form = ClassForm()
-    return render(request, 'blog/post_edit.html', {'form': form})
+    return render(request, 'schools/create_new_class.html', {'form': form})
+
+
+class ClassUpdateView(UpdateView):
+    model = Class
+    template_name = "schools/update_class.html"
+
+
 
 @user_passes_test(is_in_group_schools) 
 def todaysMealView(request):
