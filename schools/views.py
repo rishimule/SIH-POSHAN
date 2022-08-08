@@ -46,31 +46,19 @@ def createClassView(request):
         form = ClassForm()
     return render(request, 'schools/create_new_class.html', {'form': form})
 
-
 class ClassUpdateView(UpdateView):
     model = Class
+    form_class = ClassForm
     template_name = "schools/update_class.html"
+    success_url = reverse_lazy('schools:dashboard')
 
 
 
-@user_passes_test(is_in_group_schools) 
-def todaysMealView(request):
-    
-    if request.method == "POST":
-        print('1....happened')
-        form = MealForm(request.POST, request.FILES)
-        print(form)
-        if form.is_valid():
-            post = form.save(commit=False)
-            print('Form is valid........')
-            post.save()
-            return redirect('schools:dashboard', pk=post.pk)  
-    
-    else:
-        print('Error occured.....')
-        form = MealForm()
-        
-    return render(request, 'schools/todays-meal2.html', {'form': form})
+
+class MealDetailView(DetailView):
+    model = Meal
+    context_object_name = 'meal'
+    template_name = "schools/meal_detail.html"
 
 
 class MealCreateView(CreateView):

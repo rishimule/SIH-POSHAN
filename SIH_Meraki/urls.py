@@ -23,9 +23,12 @@ from . import views
 # import settings and static first
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
+    path('admin/login/', LoginView.as_view(template_name='accounts/login.html',
+                           redirect_authenticated_user=True),
+        ),
     path('admin/', admin.site.urls),
     path('', views.indexview, name='home'),
     path('placeholder', views.PlaceholderView.as_view(), name='placeholder'),
