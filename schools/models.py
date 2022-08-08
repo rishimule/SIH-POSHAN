@@ -49,7 +49,7 @@ def std_choices():
 def rename_upload_image_school_profile(instance, filename):
     ext = filename.split('.')[-1]
     filename = "profile/school/%s/%s/%s.%s.%s.%s" % (instance.user, instance.name, instance.udise_code, filename, get_current_datetime(), ext)
-    return slugify(os.path.join('images/', filename))
+    return (os.path.join('images/', filename))
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='schools')
@@ -157,7 +157,7 @@ class Student(models.Model):
 def rename_upload_image_meals(instance, filename):
     ext = filename.split('.')[-1]
     filename = "meals/%s/%s/%s.%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename,get_current_datetime(), ext)
-    return slugify(os.path.join('images/', filename))
+    return os.path.join('images/', filename)
 
 class Meal(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
