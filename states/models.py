@@ -17,7 +17,7 @@ def _(something):
 def rename_upload_image_state_profile(instance, filename):
     ext = filename.split('.')[-1]
     filename = "profile/state/%s/%s/%s.%s.%s" % (instance.user, instance.name, filename, get_current_datetime(),ext)
-    return slugify(os.path.join('images/', filename))
+    return (os.path.join('images/', filename))
 
 class State(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='states')
