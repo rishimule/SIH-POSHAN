@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 # SECURE_REDIRECT_EXEMPT = [r'/.*localhost:8080.*/gm',]
 
 
