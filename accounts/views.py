@@ -38,6 +38,7 @@ def password_reset_request(request):
                     'token': default_token_generator.make_token(user),
                     'protocol': request.scheme ,
                     }
+                    print(request.scheme)
                     text_content = plaintext.render(c)
                     html_content = htmltemp.render(c)
                     try:
