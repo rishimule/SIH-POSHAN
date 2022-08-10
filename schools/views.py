@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from .models import Student,Class,School, Meal, Attendence
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 
@@ -53,6 +54,23 @@ class ClassUpdateView(UpdateView):
     success_url = reverse_lazy('schools:dashboard')
 
 
+
+class ClassDetailView(LoginRequiredMixin, UserPassesTestMixin,DetailView):
+    model = Class
+    template_name = "schools/class_detail.html"
+    context_object_name = 'class'
+    
+    def test_func(self):
+        cond1 = is_in_group_schools(self.request.user)
+        cond2 = self.request.user.schools.classes.filter(pk = self.kwargs['pk']).exists()
+        return cond1 and cond2
+
+    def get_context_data(self, **kwargs):
+        context = super(ClassDetailView, self).get_context_data(**kwargs)
+        myclass = get_object_or_404(Class, pk=self.kwargs['pk'])
+        context["student_list"] = myclass.students.all()
+        return context
+    
 
 
 class MealDetailView(DetailView):
