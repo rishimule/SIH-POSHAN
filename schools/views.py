@@ -70,7 +70,18 @@ class ClassDetailView(LoginRequiredMixin, UserPassesTestMixin,DetailView):
         myclass = get_object_or_404(Class, pk=self.kwargs['pk'])
         context["student_list"] = myclass.students.all()
         return context
+  
     
+class ClassListView(TemplateView):
+    model = Class
+    # context_object_name = "class_list"
+    template_name = "schools/manage_class.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['class_list'] = self.request.user.schools.classes.all()
+        return context
+
 
 
 class MealDetailView(DetailView):

@@ -1,0 +1,56 @@
+{% extends 'schools/base.html' %}
+
+<!-- Title -->
+{% block title %} Meal Details {% endblock title%}
+<!-- block content -->
+{% block content %}
+
+<div class="container">
+
+    <!-- Code by w3codegenerator.com -->
+    <div class="card-deck">
+
+        {% for class in class_list %}
+        <div class="card " >
+            <div class="card-body">
+                <h5 class="card-title">{{class.class_name}}</h5>
+                <p class="card-text">
+                    {{class.class_std}}
+                    {{class.school}}
+                    {{class.year}}
+                <ul>
+                    {% for student in class.students.all %}
+                    <li>
+                        {{student.age}}
+                        <br>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {{class_list}}
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">
+
+
+
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock content %}

@@ -119,9 +119,15 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse("student_detail", kwargs={"pk": self.pk})
 
-    def get_queryset(self, *args, **kwargs):
-        qs = super(Student, self).get_queryset().annotate(age=int(self.calculate_age(self)))
-        return qs
+    # def get_queryset(self, *args, **kwargs):
+    #     qs = super(Student, self).get_queryset().annotate(age=int(self.calculate_age(self)))
+    #     return qs
+    
+    @property    
+    def age(self):
+        born = self.dob
+        today = timezone.now()
+        return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
         
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
