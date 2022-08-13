@@ -1,0 +1,7 @@
+<form action="{% url 'schools:update_profile_pic' %}" method="post" enctype="multipart/form-data" id="upload_form">
+    {% csrf_token %}
+     
+    {{form.as_p}}
+     <input type="submit" value="Upload" class="btn btn-primary">
+
+ </form>

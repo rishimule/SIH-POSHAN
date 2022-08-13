@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
-from .forms import ClassForm, MealForm,StudentForm
+from .forms import ClassForm, MealForm,StudentForm, SchoolForm
 from django.utils import timezone
 from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
@@ -114,3 +114,22 @@ class StudentCreateView(CreateView):
         form = super().get_form(form_class)
         form.fields['current_class'].queryset = self.request.user.schools.classes.all()
         return form
+    
+    
+def update_profile_pic(request):
+    myschool = request.user.schools
+    print(request)
+    if request.method == 'POST':
+        form = SchoolForm(request.POST, request.FILES, instance=myschool)
+        if form.is_valid():
+            print(form)
+            form.save()
+            print('saved')
+            return redirect('schools:profile')
+    
+    else:
+        print('NO POST REQUEST')
+        form = SchoolForm(instance=myschool)
+        print(type(form))
+        return render(request, 'schools/update_profile_pic.html',{'form':form})
+        

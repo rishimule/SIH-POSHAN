@@ -6,6 +6,7 @@ app_name = 'schools'
 urlpatterns = [
     path('',                    views.dashboardView,                name='dashboard'),
     path('profile/',            views.profileView,                  name='profile'),
+    path('update_profile_pic/', views.update_profile_pic,           name='update_profile_pic'),
     path('todays_meal/',        views.MealCreateView.as_view(),     name='todays_meal'),
     path('meal_detail/<pk>/',   views.MealDetailView.as_view(),     name='meal_detail'),
     path('student_details/',    views.studentDetailsView,           name='student_details'),

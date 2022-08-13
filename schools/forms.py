@@ -1,5 +1,5 @@
 from django import forms
-from .models import Class, Student, Meal, Attendence
+from .models import Class, Student, Meal, Attendence, School
 
 class ClassForm(forms.ModelForm):
     
@@ -21,4 +21,11 @@ class MealForm(forms.ModelForm):
         model = Meal
         fields = ("__all__")
 
-
+class SchoolForm(forms.ModelForm):
+    
+    class Meta:
+        model = School
+        fields = ("profile_pic",)
+        widgets = {
+            'profile_pic':forms.FileInput
+        }
