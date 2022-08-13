@@ -86,7 +86,7 @@ class Class(models.Model):
         return f"{self.class_name} - ({self.school})"
 
     def get_absolute_url(self):
-        return reverse("class_detail", kwargs={"pk": self.pk})
+        return reverse("schools:class_detail", kwargs={"pk": self.pk})
 
 class Student(models.Model):
     GENDER_CHOICES = (

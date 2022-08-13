@@ -1,9 +1,11 @@
-from django.http import HttpResponse
+from importlib.metadata import PackageNotFoundError
+from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
 from .forms import ClassForm, MealForm,StudentForm
 from django.utils import timezone
+from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from .models import Student,Class,School, Meal, Attendence
 from django.urls import reverse, reverse_lazy
@@ -18,10 +20,6 @@ def dashboardView(request):
     return  render(request, 'schools/index.html')
 
 @user_passes_test(is_in_group_schools) 
-def registerStudentsView(request):
-    return  render(request, 'schools/register-students.html')
-
-@user_passes_test(is_in_group_schools) 
 def profileView(request):
     return  render(request, 'schools/profile.html')
 
@@ -33,27 +31,31 @@ def attendenceView(request):
 def studentDetailsView(request):
     return  render(request, 'schools/blank.html')
 
-def createClassView(request):
-    if request.method == "POST":
-        form = ClassForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            # post.author = request.user
-            # post.published_date = timezone.now()
-            post.save()
-            return redirect('schools:dashboard', pk=post.pk)  
+class ClassCreateView(CreateView):
+    model = Class
+    form_class = ClassForm
+    template_name = "schools/create_new_class.html"
+    success_url: reverse_lazy('schools:dashboard')
     
-    else:
-        form = ClassForm()
-    return render(request, 'schools/create_new_class.html', {'form': form})
+    def form_valid(self, form):
+        form.instance.school = self.request.user.schools
+        print('this validity')
+        return super().form_valid(form)
 
 class ClassUpdateView(UpdateView):
     model = Class
     form_class = ClassForm
     template_name = "schools/update_class.html"
-    success_url = reverse_lazy('schools:dashboard')
+    # success_url = reverse_lazy('schools:dashboard')
 
 
+def ClassDeleteView(request,pk):
+    getclass = get_object_or_404(Class, pk=pk)
+    if request.user.schools.classes.filter(pk = pk).exists():
+        getclass.delete()
+        return HttpResponseRedirect(reverse('schools:manage_class'))
+    else:
+        return render(request, '403.html')
 
 class ClassDetailView(LoginRequiredMixin, UserPassesTestMixin,DetailView):
     model = Class
@@ -74,7 +76,6 @@ class ClassDetailView(LoginRequiredMixin, UserPassesTestMixin,DetailView):
     
 class ClassListView(TemplateView):
     model = Class
-    # context_object_name = "class_list"
     template_name = "schools/manage_class.html"
     
     def get_context_data(self, **kwargs):

@@ -4,9 +4,12 @@
 {% block title %} Meal Details {% endblock title%}
 <!-- block content -->
 {% block content %}
+<script src="https://unpkg.com/htmx.org@1.8.0"
+    integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc"
+    crossorigin="anonymous"></script>
 
 <div class="container">
-
+    <a name="" id="" class="btn btn-primary" href="{% url 'schools:create_class' %}" role="button">Add CLASS</a>
     <!-- Code by w3codegenerator.com -->
     <div class="card-deck">
 
@@ -27,30 +30,28 @@
                     {% endfor %}
                 </ul>
                 </p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
+                <a onclick="confirm_delete_class('{{class.id}}');"class="btn btn-danger" role="button">Delete</a>
+
             </div>
+
+
         </div>
+        {% endfor %}
     </div>
-
-
 
 
     {{class_list}}
 
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-
-
-
-            </p>
-        </div>
-    </div>
-
+    <script>
+        function confirm_delete_class(class_id_no) {
+            var r = confirm("Sure you want to delete the class?");
+            if (r == true) {
+                window.location.href = "/schools/delete_class/" + class_id_no;
+            }
+        }
+    </script>
 </div>
-
-{% endfor %}
 
 {% endblock content %}
