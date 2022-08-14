@@ -9,12 +9,15 @@
     crossorigin="anonymous"></script>
 
 <div class="container">
-    <a name="" id="" class="btn btn-primary" href="{% url 'schools:create_class' %}" role="button">Add CLASS</a>
-    <!-- Code by w3codegenerator.com -->
+    <p>
+        <a name="" id="" class="btn btn-primary" href="{% url 'schools:create_class' %}" role="button">Add CLASS</a>
+
+    </p>
     <div class="card-deck">
 
         {% for class in class_list %}
-        <div class="card ">
+        <p>
+        <div class="card shadow-lg">
             <div class="card-body">
                 <h5 class="card-title">{{class.class_name}}</h5>
                 <p class="card-text">
@@ -24,31 +27,35 @@
                 <ul>
                     {% for student in class.students.all %}
                     <li>
-                        {{student.age}}
+                        {{student}}
                         <br>
                     </li>
                     {% endfor %}
                 </ul>
                 </p>
                 <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
-                <a onclick="confirm_delete_class('{{class.id}}');"class="btn btn-danger" role="button">Delete</a>
+                <a onclick="confirm_delete_class('{{class.id}}');" class="btn btn-danger" role="button">Delete</a>
 
             </div>
 
 
         </div>
+        </p>
+
         {% endfor %}
     </div>
 
 
     {{class_list}}
 
-
+    <!-- window.location.href = "/schools/delete_class/" + class_id_no; -->
     <script>
         function confirm_delete_class(class_id_no) {
             var r = confirm("Sure you want to delete the class?");
             if (r == true) {
-                window.location.href = "/schools/delete_class/" + class_id_no;
+                tempurl = "{% url 'schools:delete_class' '86212' %}"
+                currrl = tempurl.replace('86212', class_id_no)
+                window.location.href = currrl;
             }
         }
     </script>

@@ -9,6 +9,7 @@ class ClassForm(forms.ModelForm):
         exclude = ['school']
 
 class StudentForm(forms.ModelForm):
+    dob = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}))    
     
     class Meta:
         model = Student

@@ -117,7 +117,7 @@ class Student(models.Model):
         return f"{self.first_name} {self.last_name} ({self.gr_no}) ({self.current_class})"
 
     def get_absolute_url(self):
-        return reverse("student_detail", kwargs={"pk": self.pk})
+        return reverse("schools:student_detail", kwargs={"pk": self.pk})
 
     # def get_queryset(self, *args, **kwargs):
     #     qs = super(Student, self).get_queryset().annotate(age=int(self.calculate_age(self)))
@@ -148,7 +148,7 @@ def rename_upload_image_meals(instance, filename):
     return os.path.join('images/', filename)
 
 class Meal(models.Model):
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='meals')
     name = models.CharField("Meal Name",max_length=999)
     date = models.DateField(default=timezone.now, blank=False, null=False)
     meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
