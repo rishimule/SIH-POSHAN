@@ -15,7 +15,6 @@ Including another URLconf
 """
 
 
-
 from django.contrib import admin
 from django.urls import path, include
 from . import views
@@ -26,20 +25,21 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView
 
 urlpatterns = [
-    path('admin/login/', LoginView.as_view(template_name='accounts/login.html',
-                           redirect_authenticated_user=True),
-        ),
-    path('admin/', admin.site.urls),
     path('', views.indexview, name='home'),
-    path('placeholder', views.PlaceholderView.as_view(), name='placeholder'),
-    
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('states/', include('states.urls', namespace='states')),
-    path('schools/', include('schools.urls', namespace='schools')),
-    path('talukas/', include('talukas.urls', namespace='talukas')),
-    
+    path('admin/login/', LoginView.as_view(template_name='accounts/login.html',
+                                           redirect_authenticated_user=True),
+         ),
+    path('admin/', admin.site.urls),
+    path('placeholder', views.PlaceholderView.as_view(),                name='placeholder'),
+    path('accounts/', include('accounts.urls',                          namespace='accounts')),
+    path('states/', include('states.urls',                              namespace='states')),
+    path('districts/', include('districts.urls',                        namespace='districts')),
+    path('schools/', include('schools.urls',                            namespace='schools')),
+    path('talukas/', include('talukas.urls',                            namespace='talukas')),
+
 ]
 
 # add this lines
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
