@@ -5,7 +5,7 @@
 
 <!-- Title BLOCK -->
 {% block title %}
-Dashboard
+Register School
 {% endblock title %}
 
 <!-- HEAD BLOCK -->
@@ -23,8 +23,17 @@ Dashboard
 {% block body %}
 
 <div class="container">
-    <h1>This is District dashboard</h1>
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 
 
 {% endblock body %}

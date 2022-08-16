@@ -5,5 +5,16 @@ app_name = 'districts'
 
 urlpatterns = [
     # DISTRICT
-    path('',                    views.dashboardView,                name='dashboard'),
+    path(
+        route= '',                    
+        view = views.dashboardView,                
+        name = 'dashboard'
+    ),
+    
+    # SCHOOL
+    path(
+        route= 'register_school',                    
+        view = views.SchoolCreateView.as_view(),                
+        name = 'register_school'
+    ),
 ]

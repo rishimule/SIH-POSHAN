@@ -33,7 +33,7 @@ class District(models.Model):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
                                 )
     contact_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, related_name='districts')
     
 
     class Meta:

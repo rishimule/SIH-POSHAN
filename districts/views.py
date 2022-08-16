@@ -8,10 +8,25 @@ from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from schools.models import School
+from .forms import SchoolForm
 
 # Create your views here.
 # Create your views here.
-# @user_passes_test(is_in_group_districts, login_url='/')
-# @login_required
+@user_passes_test(is_in_group_districts, login_url='/')
+@login_required
 def dashboardView(request):
     return render(request, 'districts/dashboard.html')
+
+class SchoolCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = School
+    template_name = "districts/register_school.html"
+    form_class = SchoolForm
+    
+    def form_valid(self, form):
+        form.instance.district = self.request.user.districts
+        return super().form_valid(form)
+    
+    def test_func(self):
+        cond1 = is_in_group_districts(self.request.user)
+        return cond1
