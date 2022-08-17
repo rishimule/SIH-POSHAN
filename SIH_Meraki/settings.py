@@ -127,8 +127,8 @@ DATABASES = {
         'NAME': 'djangodbsih',
         'USER': 'sihdjangoadmin',
         'PASSWORD': 'Te@mMerak1',
-        'HOST': '43.204.194.191',
-        'PORT': '54918',
+        'HOST': '43.205.168.182',
+        'PORT': '51399',
     }
 
 }

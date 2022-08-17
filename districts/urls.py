@@ -13,8 +13,18 @@ urlpatterns = [
     
     # SCHOOL
     path(
-        route= 'register_school',                    
+        route= 'register_school/',                    
         view = views.SchoolCreateView.as_view(),                
         name = 'register_school'
+    ),
+    path(
+        route= 'manage_schools/',                    
+        view = views.SchoolList.as_view(),                
+        name = 'manage_schools'
+    ),
+    path(
+        route= 'school_detail/<pk>/',                    
+        view = views.SchoolDetail.as_view(),                
+        name = 'school_detail'
     ),
 ]
