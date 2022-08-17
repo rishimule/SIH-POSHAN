@@ -38,11 +38,11 @@
               <td>{{student.gender}}</td>
               <td style="color: red;">6.1</td>
               <td style="text-align: center;">
-                <a class="btn btn-info btn-icon-split" role="button" href="#">
+                <a class="btn btn-info btn-icon-split" role="button" href="{% url 'schools:student_detail' pk=student.pk %}">
                   <span class="text-white-50 icon">
                     <i class="far fa-edit"></i>
                   </span>
-                  <span class="text-white text">Edit</span>
+                  <span class="text-white text">View</span>
                 </a>
               </td>
             </tr>

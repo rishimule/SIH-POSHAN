@@ -1,9 +1,10 @@
 from importlib.metadata import PackageNotFoundError
+from urllib import request
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
-from .forms import ClassForm, MealForm, StudentForm, SchoolForm
+from .forms import ClassForm, MealForm, StudentForm, SchoolForm,AddAttendenceForm
 from django.utils import timezone
 from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
@@ -177,8 +178,33 @@ class StudentDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         cond2 = mystudent.current_class.school.user == self.request.user
         return cond1 and cond2   
     
-    # def get_context_data(self, **kwargs):
-    #     context = super(StudentDetailView, self).get_context_data(**kwargs)
-    #     myclass = get_object_or_404(Class, pk=self.kwargs['pk'])
-    #     context["student_list"] = myclass.students.all()
-    #     return context
+class StudentUpdateView(UpdateView):
+    model = Student
+    form_class = StudentForm
+    template_name = "schools/update_student.html"
+    
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['current_class'].queryset = self.request.user.schools.classes.all()
+        return form
+
+class AttendenceView(TemplateView):
+    template_name = "schools/attendence.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form1 = AddAttendenceForm(self.request.user)
+        context['form1'] = form1
+        return context
+
+def addAtt(request, date, myclass):
+    return HttpResponseRedirect(render('home'))
+
+def redirect_to_add_attendenceView(request):
+    if request.method == 'POST':
+        data = request.POST
+        date = data['date']
+        print(date)
+        myclass = data['myclass']
+        print(data)
+        return redirect(reverse('schools:addAtt',  kwargs={'date':date, 'myclass':myclass}))   

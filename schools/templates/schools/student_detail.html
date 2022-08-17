@@ -14,6 +14,14 @@
             <p>{{student.gender}}</p>
             <p>{{student.current_height}}</p>
             <p>{{student.current_weight}}</p>
+            <p>
+                <a class="btn btn-info btn-icon-split" role="button" href="{% url 'schools:update_student' pk=student.pk %}">
+                    <span class="text-white-50 icon">
+                      <i class="far fa-edit"></i>
+                    </span>
+                    <span class="text-white text">Update</span>
+                  </a>
+            </p>
             
         </div>
 

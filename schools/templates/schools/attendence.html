@@ -3,9 +3,23 @@
 {% block title %}404{% endblock title %}
 
 {% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 <div class="container-fluid">
     <h3 class="text-dark mb-4">Attendence</h3>
+</div>
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <form action="{% url 'schools:redirect_to_add_attendence' %}" method="post">
+                {% csrf_token %}
+                {{form1|crispy}}
+                <!-- <button type="submit" onclick="goadd();" class="btn btn-danger" btn-lg btn-block>Attendence</button> -->
+                <button type="submit" class="btn btn-danger" btn-lg btn-block>Attendence</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

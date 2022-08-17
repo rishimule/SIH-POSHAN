@@ -35,22 +35,12 @@ Manage Schools
         <p>
         <div class="card shadow-lg">
             <div class="card-body">
-                <h5 class="card-title">{{school.class_name}}</h5>
+                <h5 class="card-title">{{school.name}}</h5>
                 <p class="card-text">
-                    {{class.class_std}}
-                    {{class.school}}
-                    {{class.year}}
-                <ul>
-                    {% for student in class.students.all %}
-                    <li>
-                        {{student}}
-                        <br>
-                    </li>
-                    {% endfor %}
-                </ul>
+                    {{school.udise_code}}
                 </p>
-                <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
-                <a onclick="confirm_delete_class('{{class.id}}');" class="btn btn-danger" role="button">Delete</a>
+                <a href="{% url 'districts:school_detail' pk=school.pk %}" class="btn btn-primary">Details</a>
+                <a href="#" class="btn btn-danger" role="button">Delete</a>
 
             </div>
 
