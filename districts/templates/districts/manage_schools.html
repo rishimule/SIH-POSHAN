@@ -1,0 +1,80 @@
+{% extends "districts/base.html" %}
+
+<!-- ----------------------------------------------load static---------------------------------------------- -->
+{% load static %}
+
+<!-- ----------------------------------------------Title BLOCK---------------------------------------------- -->
+{% block title %}
+Manage Schools
+{% endblock title %}
+
+<!-- ----------------------------------------------HEAD BLOCK---------------------------------------------- -->
+{% block head %}
+
+{% endblock head %}
+
+<!-- ----------------------------------------------STYLE BLOCK---------------------------------------------- -->
+{% block style %}
+
+<style>
+
+
+</style>
+
+{% endblock style %}
+
+
+<!-- ----------------------------------------------Body BLOCK---------------------------------------------- -->
+{% block body %}
+
+<div class="container">
+
+    <div class="card-deck">
+
+        {% for school in school_list %}
+        <p>
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title">{{school.class_name}}</h5>
+                <p class="card-text">
+                    {{class.class_std}}
+                    {{class.school}}
+                    {{class.year}}
+                <ul>
+                    {% for student in class.students.all %}
+                    <li>
+                        {{student}}
+                        <br>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </p>
+                <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
+                <a onclick="confirm_delete_class('{{class.id}}');" class="btn btn-danger" role="button">Delete</a>
+
+            </div>
+
+
+        </div>
+        </p>
+
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock body %}
+
+<!-- ----------------------------------------------Script BLOCK---------------------------------------------- -->
+
+{% block script %}
+<script>
+
+
+
+
+
+</script>
+
+{% endblock script %}
