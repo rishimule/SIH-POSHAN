@@ -18,10 +18,14 @@ linksPath = os.path.join(imagePath, 'imageLinks')
 trainPath = os.path.join(imagePath, 'train')
 testPath = os.path.join(imagePath, 'test')
 
-model = load_model('FV.h5')
+model = load_model('Vv.h5')
 # labels = "C:/Users/mahee/OneDrive/Desktop/sih6/indian_food.csv"
 # labels = {0:'Dal_rice',1:'Kichdi',2:'chapati'}
-meal = ["Dal_rice","Kichdi","Chapati"]  
+# meal = ["Dal_rice","Kichdi","Chapati"]  
+meal = ['Khichdi','Aloo_sabji_chapati','Dal_rice','Pohe','Aloo_puri']
+
+
+
 # os.system('python dataset.py')
 
 # fruits = ['Apple','Banana','Bello Pepper','Chilli Pepper','Grapes','Jalepeno','Kiwi','Lemon','Mango','Orange','Paprika','Pear','Pineapple','Pomegranate','Watermelon']
