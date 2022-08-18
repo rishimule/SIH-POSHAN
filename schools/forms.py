@@ -42,3 +42,6 @@ class AddAttendenceForm(forms.Form):
          print(self.user.schools.classes.all().order_by('class_name'))
          if self.user.schools.classes.all().exists():
             self.fields['myclass'].queryset = self.user.schools.classes.all().order_by('class_name')
+
+
+    

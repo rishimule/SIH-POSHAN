@@ -1,4 +1,3 @@
-from importlib.metadata import PackageNotFoundError
 from urllib import request
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -198,7 +197,24 @@ class AttendenceView(TemplateView):
         return context
 
 def addAtt(request, date, myclass):
-    return HttpResponseRedirect(render('home'))
+    thisclass = get_object_or_404(Class, pk=myclass)
+    student_list = thisclass.students.all()
+    print(student_list)
+    
+    if request.method == 'POST':
+        data = request.POST
+        print(data)
+        print(list(data.items()))
+        
+        pass 
+    
+    return render(
+        request, 
+        'schools/add_attendence.html', 
+        context={
+            'student_list':student_list
+        }
+    )
 
 def redirect_to_add_attendenceView(request):
     if request.method == 'POST':
@@ -206,5 +222,6 @@ def redirect_to_add_attendenceView(request):
         date = data['date']
         print(date)
         myclass = data['myclass']
-        print(data)
+        print(type(myclass))
         return redirect(reverse('schools:addAtt',  kwargs={'date':date, 'myclass':myclass}))   
+
