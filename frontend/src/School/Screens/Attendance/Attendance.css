@@ -1,0 +1,28 @@
+.attendance .container {
+    box-shadow: 0 5px 15px -1px rgb(0 0 0 / 19%);
+}
+
+.attendance .col-md-6 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.attendance-btn {
+    background-color: #f2f2f2;
+    border: 1px solid #7e7e7e;
+    transition: all 0.2s ease-in;
+    border-radius: 25px;
+    padding: 1rem;
+    color: rgb(0, 0, 0);
+    transform: scale(0.9);
+
+}
+
+.attendance-btn.selected {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1);
+
+}

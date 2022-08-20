@@ -1,0 +1,44 @@
+.dashboard .report-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    font-size: 0.8rem;
+}
+
+.dashboard .report-btn:hover {
+    background-color: #345358;
+}
+
+.dashboard .info-cards .info-card {
+    box-shadow: 0 5px 15px -1px rgb(0 0 0 / 19%);
+    padding: 1rem 2rem;
+    border-radius: 20px;
+}
+
+.dashboard .info-cards .info-card .card-title {
+    font-size: 0.8rem;
+}
+
+.dashboard .info-cards .info-card .data {
+    font-size: 1.3rem;
+}
+
+.dashboard .mean-cal {
+    box-shadow: 0 5px 15px -1px rgb(0 0 0 / 19%);
+    padding: 1rem 1rem;
+    border-radius: 20px;
+    color: var(--primary-color);
+    min-height: 300px;
+}
+
+.dashboard .bmi {
+    box-shadow: 0 5px 15px -1px rgb(0 0 0 / 19%);
+    padding: 1rem 1rem;
+    border-radius: 20px;
+    color: var(--primary-color);
+    max-width: 450px;
+    aspect-ratio: 1;
+}

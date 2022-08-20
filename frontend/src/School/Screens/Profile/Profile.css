@@ -1,0 +1,11 @@
+.shadow-con {
+    box-shadow: 0 5px 15px -1px rgb(0 0 0 / 19%);
+    border-radius: 20px;
+}
+
+.profile .info p {
+    font-size: 0.9rem;
+    color: rgb(124, 124, 124);
+    font-weight: 500;
+    margin-bottom: 5px;
+}

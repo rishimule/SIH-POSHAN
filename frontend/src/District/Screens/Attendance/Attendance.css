@@ -1,0 +1,10 @@
+.attendance .container {
+    box-shadow: 0 5px 15px -1px rgb(0 0 0 / 19%);
+}
+
+.attendance .col-md-6 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}

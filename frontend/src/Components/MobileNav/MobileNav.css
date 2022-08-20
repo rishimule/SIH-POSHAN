@@ -1,0 +1,46 @@
+.mob-nav {
+    position: absolute;
+    left: 1.1rem;
+    top: 0.9rem;
+    cursor: pointer;
+}
+
+.mob-nav i {
+    font-size: 1.5rem;
+}
+
+.mob-nav .menu {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 90vw;
+    max-width: 300px;
+    z-index: 10;
+    overflow: hidden;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.mob-nav .menu.active {
+    transform: translateX(0);
+}
+
+.mob-nav .sidebar {
+    width: 100%;
+}
+
+.mob-nav #menuClose-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+.mob-nav .close-box {
+    position: absolute;
+    z-index: 10;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+}

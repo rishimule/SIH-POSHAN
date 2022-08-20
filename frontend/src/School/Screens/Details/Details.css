@@ -1,0 +1,4 @@
+.details .table-con {
+    max-height: 55vh;
+    overflow: auto;
+}
