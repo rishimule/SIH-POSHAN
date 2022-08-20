@@ -9,7 +9,6 @@ from districts.models import District
 import os
 import re
 from django.contrib.auth.models import Group
-from slugify import slugify
 from merakiiextras.common import get_current_datetime
 
 def _(something):
@@ -93,7 +92,6 @@ class Student(models.Model):
         ('Male', 'Male'),
         ('Female', 'Female'),
     	)
-
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     mother_name = models.CharField(max_length=150, blank=True, null=True)
@@ -101,12 +99,14 @@ class Student(models.Model):
     dob = models.DateField()
     current_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='students')
     gr_no = models.CharField(max_length=50)
+    roll_no = models.CharField(max_length=50)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES, blank=False, default=0)
     current_height = models.FloatField(blank=True, null=True)
     current_weight = models.FloatField(blank=True, null=True)
     # age = models.IntegerField(blank=True, null=True)
     created  = models.DateTimeField(editable=False, default=timezone.now)
     modified = models.DateTimeField(default=timezone.now, editable=False)
+
 
     class Meta:
         verbose_name = "student"
@@ -147,11 +147,13 @@ def rename_upload_image_meals(instance, filename):
     filename = "meals/%s/%s/%s.%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename, get_current_datetime(), ext)
     return os.path.join('images/', filename)
 
+class IMage(models.Model):
+    meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
+
 class Meal(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='meals')
     name = models.CharField("Meal Name",max_length=999)
     date = models.DateField(default=timezone.now, blank=False, null=False)
-    meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
 

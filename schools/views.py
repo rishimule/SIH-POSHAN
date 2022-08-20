@@ -7,10 +7,14 @@ from .forms import ClassForm, MealForm, StudentForm, SchoolForm,AddAttendenceFor
 from django.utils import timezone
 from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
-from .models import Student, Class, School, Meal, Attendence
+from .models import IMage, Student, Class, School, Meal, Attendence
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.response import Response
+from .serializers import AddImageserializer, Attendanceserializer, Mealserializers, studentSerializers,AddAttendanceserializer
+from photocalpro.modelfile2 import return_calories_proteins
 
 # Create your views here.
 @user_passes_test(is_in_group_schools, login_url='/')
@@ -251,3 +255,83 @@ def redirect_to_add_attendenceView(request):
         print(type(myclass))
         return redirect(reverse('schools:addAtt',  kwargs={'date':date, 'myclass':myclass}))   
 
+
+class register_stu(APIView):
+    def post(self,request,*args, **kwargs) :
+        print(request.data)
+        serializer=studentSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':'profile created'},status=status.HTTP_201_CREATED)
+        return Response({'msg':serializer.errors},status=status.HTTP_403_FORBIDDEN)
+    
+    def get(self,request,*args, **kwargs):
+        return Response({'msg':'Hi ! You can proceed to Resgister'},status=status.HTTP_200_OK)
+    
+class Meal_add(APIView):
+    def post(self,request,*args, **kwargs):
+        data=request.data
+        if data['calories'] and data['protiens']:
+            serializer=Mealserializers(data=data)
+            data['school']=17
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'msg':'Your meal has been added!!!'},status=status.HTTP_201_CREATED)
+            return Response({'some error':serializer.errors},status=status.HTTP_200_OK)
+        else:
+            data['school']=17
+            calpro=return_calories_proteins(data['meal_pic'])
+            print(data['meal_pic'])
+            serializer=AddImageserializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                meal_pic=IMage.objects.all().latest()
+                return Response({'calories':calpro['calories'],'proteins':calpro['proteins'],'name':data['name'],'meal_pic':meal_pic},status=status.HTTP_200_OK)
+            return Response({'msg':serializer.errors},status=status.HTTP_200_OK)
+        
+        
+    def get(self,request,*args, **kwargs):
+        return Response({'msg':'yo user'},status=status.HTTP_200_OK)
+    
+class profile_get(APIView):
+    def get(self,request,*args, **kwargs):
+        cond1 = is_in_group_schools(self.request.user)
+        print(self.kwargs['pk'])
+        mystudent = Student.objects.get(id=self.kwargs['pk'])
+        serialized_data=studentSerializers(mystudent)
+        cond2 = mystudent.current_class.school.user == self.request.user
+        print(serialized_data)
+        return Response({'msg':serialized_data.data},status=status.HTTP_200_OK)
+    
+    def put(self,request,*args, **kwargs):
+        data=request.data
+        serializer=studentSerializers(id=self.kwargs['pk'],data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':'successfully edited!!'},status=status.HTTP_200_OK)
+        return Response({'msg':serializer.errors},status=status.HTTP_201_CREATED)
+    
+class attendance(APIView):
+    def get(self,request,*args, **kwargs):
+        stu=Student.objects.all()
+        serializer=Attendanceserializer(stu, many=True)
+        return Response({'msg':serializer.data},status=status.HTTP_200_OK)
+    
+    def post(self,request,*args, **kwargs):
+        data=request.data
+        if len(data['students'])==0:
+            stu=Student.objects.filter(current_class=data['class'])
+            serializer=Attendanceserializer(stu, many=True)
+            ate=Attendence.objects.filter(date=data['date'])
+            serializer_attend=AddAttendanceserializer(ate,many=True)
+            return Response({'msg':{'classstudent':serializer.data,'alreadyaddedone':serializer_attend.data}},status=status.HTTP_200_OK)
+        else:
+            stu_list={}
+            for item in data['students']:
+                stu_list['student_id']=item
+                stu_list['date']=data['date']
+                print(stu_list)
+                stu=Attendence(student_id=stu_list['student_id'],date=stu_list['date'])
+                stu.save()
+                    # return Response({'msg':serializer.data},status=status.HTTP_200_OK)
+            return Response({'msg':'attenddance added!!'},status=status.HTTP_200_OK)

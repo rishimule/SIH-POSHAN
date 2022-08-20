@@ -10,13 +10,15 @@ urlpatterns = [
     path('update_profile_pic/', views.update_profile_pic,           name='update_profile_pic'),
     
     # MEAL
-    path('todays_meal/',        views.MealCreateView.as_view(),     name='todays_meal'),
+    path('meal/',views.Meal_add.as_view(),     name='todays_meal'),
     path('meal_detail/<pk>/',   views.MealDetailView.as_view(),     name='meal_detail'),
     
     # STUDENT
+    path('register_students/',views.register_stu.as_view(),name='register'),
     path('create_students/',    views.StudentCreateView.as_view(),  name='create_students'),
-    path('student_detail/<pk>/',views.StudentDetailView.as_view(),  name='student_detail'),
+    path('student_details/<pk>/',  views.profile_get.as_view(), name='student_detail'),
     path('update_student/<pk>/', views.StudentUpdateView.as_view(),  name='update_student'),
+    
 
     
     # CLASS
@@ -27,7 +29,7 @@ urlpatterns = [
     path('delete_class/<pk>/',  views.ClassDeleteView,              name='delete_class'),
     
     # ATTENDENCE
-    path('attendence/',        views.AttendenceView.as_view(),     name='attendence'),
+    path('attendence/',         views.attendance.as_view(),               name='attendence'),
     path('addAtt/<myclass>/<date>/',        views.addAtt,     name='addAtt'),
     path(
         'redirect_to_add_attendence/',        
