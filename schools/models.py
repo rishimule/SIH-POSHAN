@@ -167,16 +167,18 @@ class Meal(models.Model):
         return reverse("meal_detail", kwargs={"pk": self.pk})
 
 class Attendence(models.Model):
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    # meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
+    date = models.DateField(default=timezone.now, blank=False, null=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="attendences")
 
     class Meta:
         verbose_name = _("attendence")
         verbose_name_plural = _("attendences")
-        unique_together = ('meal', 'student')
+        # unique_together = ('meal', 'student')
+        unique_together = ('date', 'student')
 
     def __str__(self):
-        return f"{self.student} ----> {self.meal.date}"
+        return f"{self.student} ----> {self.date}"
 
     def get_absolute_url(self):
         return reverse("attendence_detail", kwargs={"pk": self.pk})

@@ -14,9 +14,9 @@
         <div class="card-body">
             <form action="" method="post">
                 {% csrf_token %}
-                {% for student in student_list %}
+                {% for student, active in new_record %}
                 <p>
-                    <input name="{{student.pk}}" type="checkbox" class="btn-check" id="btn-check-{{student.pk}}" autocomplete="off" />
+                    <input name="{{student.pk}}" type="checkbox" class="btn-check" id="btn-check-{{student.pk}}" autocomplete="off" {{active}} />
                     <label class="btn btn-outline-danger" for="btn-check-{{student.pk}}">{{student.first_name}} - {{student.pk}}</label>
 
 

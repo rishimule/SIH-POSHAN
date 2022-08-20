@@ -1,5 +1,5 @@
 # import streamlit as st
-from PIL import Image
+from PIL import Image as image
 from keras.preprocessing.image import load_img,img_to_array
 import numpy as np
 from keras.models import load_model
@@ -10,6 +10,16 @@ import os
 import csv
 import pandas as pd
 # from google.colab import drive
+from io import BytesIO
+import urllib
+# import image
+
+def loadImage(URL):
+    with urllib.request.urlopen(URL) as url:
+        img = image.load_img(BytesIO(url.read()), target_size=(125, 125))
+
+    return image.img_to_array(img)
+
 
 root = os.getcwd()
 imagePath = os.path.join(root, 'images')
@@ -51,7 +61,7 @@ def fetch_calories(prediction):
         # return calories
         
     except Exception as e:
-        st.error("Can't able to fetch the Calories")
+        print("Can't able to fetch the Calories")
         print(e)
 
 def fetch_proteins(prediction):
@@ -73,11 +83,12 @@ def fetch_proteins(prediction):
         # proteins = scrap.find("div", class_="BNeawe iBp4i AP7Wnd").text
         # return proteins
     except Exception as e:
-        st.error("Can't able to fetch the Proteins")
+        print("Can't able to fetch the Proteins")
         print(e)
 
 def processed_img(img_path):
-    img=load_img(img_path,target_size=(224,224,3))
+    # img=load_img(img_path,target_size=(224,224,3))
+    img=loadImage(img_path)
     img=img_to_array(img)
     img=img/255
     img=np.expand_dims(img,[0])
@@ -160,5 +171,5 @@ def run(img_file = "C:/my folder/sih/dal rice.jpg"):
 #     }
 
 if __name__ == "__main__":
-    ans = run()
+    ans = run('https://sih-django.run-ap-south1.goorm.io/media/images/meals/St.%20Xaviers%20High%20School%20-%20(Mumbai)/2022-08-08/Tanaya.2022-08-08.WhatsApp_I_eerqA5b.jpeg')
     print(ans)

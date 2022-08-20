@@ -200,19 +200,45 @@ def addAtt(request, date, myclass):
     thisclass = get_object_or_404(Class, pk=myclass)
     student_list = thisclass.students.all()
     print(student_list)
+    existing_record = Attendence.objects.filter(date=date).filter(student__in= student_list)
+    print(existing_record)
+    new_record = []
+    for student in student_list:
+        if existing_record.filter(student=student).exists():
+            new_record.append((student,'checked'))
+        else:
+            new_record.append((student, ''))
+    print(new_record)
     
     if request.method == 'POST':
+        
         data = request.POST
         print(data)
         print(list(data.items()))
-        
-        pass 
+        present_students_pk = []
+        for x,y in data.items():
+            if y == 'on':
+                present_students_pk.append(int(x))
+        print(present_students_pk)
+        existing_record.delete()
+        for pk in present_students_pk:
+            student = get_object_or_404(Student, pk=pk)
+            attend = Attendence(student=student, date=date)
+            try:
+                attend.save() 
+                print(f"Added {attend}")
+            except:
+                print(f"Already Exists! {attend}")
+            
+        return redirect(reverse('schools:attendence')) 
+    
     
     return render(
-        request, 
-        'schools/add_attendence.html', 
-        context={
-            'student_list':student_list
+        request = request, 
+        template_name = 'schools/add_attendence.html', 
+        context = {
+            'new_record':new_record,
+            'student_list':student_list,
         }
     )
 
