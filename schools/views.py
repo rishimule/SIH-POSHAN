@@ -11,18 +11,70 @@ from .models import Student, Class, School, Meal, Attendence, MealImage
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from photocalpro.modelfile2 import return_calories_proteins
+import datetime
+from django.db.models import Count, Avg
 
 # Create your views here.
 @user_passes_test(is_in_group_schools, login_url='/')
 @login_required
 def dashboardView(request):
-    return render(request, 'schools/index.html')
+    school = request.user.schools
+    todays_date = datetime.date.today()
+    
+    # MEALS SERVED MONTHLY
+    meals_served_monthly = Attendence.objects.filter(date__year = todays_date.year, date__month = todays_date.month).count()
+    
+    # MEALS SERVED WEEKLY
+    meals_served_weekly = Attendence.objects.filter(date__lte = todays_date, date__gte = todays_date - datetime.timedelta(days = 7)).count()
+    
+    
+    # TODAYS ATTENDENCE
+    todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date).filter(student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
+    
+    # AVERAGE DAILY MEAL SERVED
+    distinct_pairs_count = Attendence.objects.values('date','student').distinct().count()
+    # print(distinct_pairs_count)
+    # print(Attendence.objects.values('date','student').distinct())
+    distinct_users_count = Attendence.objects.values('date').distinct().count()  
+    # print(Attendence.objects.values('date').distinct()) 
+    # print(distinct_users_count) 
+    average_daily_meals_served = int(distinct_pairs_count / distinct_users_count)
+    
+    
+    # CONTEXT
+    context = {
+        'meals_served_monthly': meals_served_monthly,
+        'meals_served_weekly': meals_served_weekly,
+        'todays_attendence_percentage' : todays_attendence_percentage,
+        'average_daily_meals_served' : average_daily_meals_served,
+        
+    }
+    
+    return render(request, 'schools/index.html', context=context)
 
 
 @user_passes_test(is_in_group_schools, login_url='/')
 @login_required
 def profileView(request):
-    return render(request, 'schools/profile.html')
+    school = request.user.schools
+    todays_date = datetime.date.today()
+    
+    # PRE PRIMARY PERCENTAGE
+    pre_primary_meal_percentage = int(Attendence.objects.filter(student__current_class__school = school, student__current_class__class_std__lte = -1, student__current_class__class_std__gte=-2).count()  / Student.objects.filter(current_class__class_std__lte = -1, current_class__class_std__gte=-2).count() * 100)
+    
+    # LOWER PRIMARY PERCENTAGE
+    lower_primary_meal_percentage = int(Attendence.objects.filter(student__current_class__school = school, student__current_class__class_std__lte = 4, student__current_class__class_std__gte=0).count()  / Student.objects.filter(current_class__class_std__lte = 4, current_class__class_std__gte=0).count() * 100)
+    
+    # UPPER PRIMARY PERCENTAGE
+    upper_primary_meal_percentage = int(Attendence.objects.filter(student__current_class__school = school, student__current_class__class_std__lte = 11, student__current_class__class_std__gte=5).count()  / Student.objects.filter(current_class__class_std__lte = 11, current_class__class_std__gte=5).count() * 100)
+    
+        
+    context = {
+        'pre_primary_meal_percentage': pre_primary_meal_percentage,
+        'lower_primary_meal_percentage': lower_primary_meal_percentage,
+        'upper_primary_meal_percentage': upper_primary_meal_percentage,
+    }
+    return render(request, 'schools/profile.html',context=context)
 
 
 @user_passes_test(is_in_group_schools, login_url='/')

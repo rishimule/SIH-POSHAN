@@ -1,4 +1,5 @@
 {% extends 'schools/base.html' %}
+{% load humanize %}
 
 {% block title %}Dashboard{% endblock title %}
 
@@ -7,7 +8,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark mb-0">Dashboard</h3>
-        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i
+        <a class="btn btn-primary btn-sm d-none d-sm-inline-block"  value="Print this page" onClick="window.print()" role="button" href="#"><i
                 class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate
             Report</a>
     </div>
@@ -20,7 +21,7 @@
                             <div class="text-uppercase text-primary fw-bold text-xs mb-1">
                                 <span>Meals served (monthly)</span>
                             </div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>9,854</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>{{meals_served_monthly|intcomma}}</span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-fire fa-2x text-gray-300"></i>
@@ -37,7 +38,7 @@
                             <div class="text-uppercase text-success fw-bold text-xs mb-1">
                                 <span>Meals served (weekly)</span>
                             </div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>2,150</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>{{meals_served_weekly|intcomma}}</span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-fire fa-2x text-gray-300"></i>
@@ -57,14 +58,14 @@
                             <div class="row g-0 align-items-center">
                                 <div class="col-auto">
                                     <div class="text-dark fw-bold h5 mb-0 me-3">
-                                        <span>46%</span>
+                                        <span>{{todays_attendence_percentage}}%</span>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-info" aria-valuenow="68" aria-valuemin="0"
-                                            aria-valuemax="100" style="width: 46%">
-                                            <span class="visually-hidden">46%</span>
+                                        <div class="progress-bar bg-info" aria-valuenow="{{todays_attendence_percentage}}" aria-valuemin="0"
+                                            aria-valuemax="100" style="width: {{todays_attendence_percentage}}%">
+                                            <span class="visually-hidden">{{todays_attendence_percentage}}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +86,7 @@
                             <div class="text-uppercase text-warning fw-bold text-xs mb-1">
                                 <span>Average daily meals served</span>
                             </div>
-                            <div class="text-dark fw-bold h5 mb-0"><span>309</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>{{average_daily_meals_served}}</span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-fire-alt fa-2x text-gray-300"></i>

@@ -1,4 +1,4 @@
-from schools.models import School, Class, Student
+from schools.models import School, Class, Student, Attendence, Meal
 from districts.models import District
 from django.contrib.auth.models import User
 from faker import Faker
@@ -7,6 +7,8 @@ import random
 from pathlib import Path
 from django.core.files import File
 from slugify import slugify
+from datetime import date as dtdate
+from datetime import timedelta
 
 
 def add_school(num=1):
@@ -117,4 +119,38 @@ def add_student(num=1):
         except Exception as e:
             print(e)
             print('Not SAVED')
+
+
+def add_attendence(num=1):
+    date = dtdate.today()
+    for _ in range(15):
+        date = date - timedelta(days = 1)
+        print(date)
+        if date.weekday() < 5:
+            school = School.objects.filter(name__icontains = 'adarsh').first()
+            class_list = school.classes.order_by('class_std')
+            print(class_list)
+            for myclass in class_list:
+                Attendence.objects.filter(date=date).filter(student__in = myclass.students.all()).delete()
+                presentpercent = random.randint(40,80)
+                student_count = myclass.students.count()
+                # print(student_count)
+                present_count = int(presentpercent * student_count / 100)
+                # print(present_count)
+                student_list = myclass.students.order_by('?')[:present_count]
+                # print(student_list)
+                for student in student_list:
+                    try:
+                        addt = Attendence(
+                            date=date,
+                            student=student
+                        )
+                        addt.save()
+                        print(f'Saved.... {addt}')
+                    except Exception as e:
+                        print(f'Error Occured ---> {e}')
+                        
+        else:
+            print(f'{date} is Not a weekday!')
+    
 
