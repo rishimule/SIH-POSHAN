@@ -189,6 +189,8 @@ def mealCreateView(request):
         return render(request, "schools/todays-meal.html", context)
     
     elif request.method == 'POST':
+            print(request.POST)
+            print(request.FILES)
             school = request.user.schools
             name = request.POST['name']
             date = request.POST['date']
@@ -210,6 +212,7 @@ def mealCreateView(request):
                 Meal.objects.filter(date=date).filter(school=school).delete()
                 print('Deleted Old Meal Record!')
             mealinstance.save()
+            print(f"{mealinstance} added to database!")
             return redirect(reverse('schools:dashboard'))
     else:
         form = MealForm()
@@ -218,78 +221,6 @@ def mealCreateView(request):
             'next_action_url' : reverse('schools:todays_meal')
         }
         return render(request, "schools/todays-meal.html", context)
-
-def add_meal_part1(request):  
-    
-    
-    if request.method == 'POST' and request.FILES:
-        print(request.POST)
-        print(request.FILES)
-        
-        temp_meal_pic = MealImage(meal_pic = request.FILES['meal_pic'])
-        temp_meal_pic.save()
-        print(temp_meal_pic)
-        
-        health_data = return_calories_proteins(image=temp_meal_pic.meal_pic.url)
-        print(health_data)
-        
-        school = request.user.schools
-        name = request.POST['name']
-        date = request.POST['date']
-        meal_pic = temp_meal_pic.meal_pic
-        calories = float(health_data['calories'])
-        proteins = float(health_data['proteins']) 
-        
-        mealinstance = Meal(
-            school = school,
-            name = name,
-            date = date,
-            meal_pic= meal_pic,
-            calories = calories,
-            proteins = proteins
-        )
-        print(mealinstance)
-        
-        form = MealForm2(instance=mealinstance)
-        context = {
-            'form': form,
-            'temp_meal_pic' : temp_meal_pic,
-            'next_action_url' : reverse('schools:add_meal_part1')
-        }
-        return render(request, "schools/todays-meal2.html", context)
-    else:
-         if request.method == 'POST':
-            school = request.user.schools
-            name = request.POST['name']
-            date = request.POST['date']
-            meal_pic = MealImage.objects.get(pk=request.POST['mealimage_id']).meal_pic
-            calories = request.POST['calories']
-            proteins = request.POST['proteins']
-                      
-            mealinstance = Meal(
-                school = school,
-                name = name,
-                date = date,
-                meal_pic= meal_pic,
-                calories = calories,
-                proteins = proteins
-            )
-            print(mealinstance)
-            if Meal.objects.filter(date=date).filter(school=school).exists():
-                print('Old Meal Record Found')
-                Meal.objects.filter(date=date).filter(school=school).delete()
-                print('Deleted Old Meal Record!')
-            mealinstance.save()
-            return redirect(reverse('schools:dashboard'))
-             
-
-
-
-
-
-
-
-
 
 
 class StudentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):

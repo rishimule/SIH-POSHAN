@@ -5,6 +5,6 @@ register = template.Library()
 def addclass(field, css):
     return field.as_widget(attrs={"class":css})
 
-@register.filter(name='disablefield')
-def disablefield(field):
-    return field(disabled = True)
+@register.filter(name='addclassdisabled')
+def addclassdisabled(field, css):
+    return field.as_widget(attrs={"class":css, "readonly":'true'})

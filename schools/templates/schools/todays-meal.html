@@ -30,7 +30,13 @@
                                             <span style="color: red ;">*</span>
                                             {% endif %}
                                         </label>
+
+                                        {% if temp_meal_pic %}
+                                        {{ field|addclassdisabled:"form-control" }}
+                                        {% else %}
                                         {{ field|addclass:"form-control" }}
+                                        {% endif %}
+
                                         {% if field.errors %}
                                         <div class="alert alert-danger alert-sm form_alert">{{ field.errors }}</div>
                                         {% endif %}
