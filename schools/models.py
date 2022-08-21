@@ -185,5 +185,21 @@ class Attendence(models.Model):
         return reverse("attendence_detail", kwargs={"pk": self.pk})
 
 
+def rename_upload_image_meals_temp(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "temp_meals/%s.%s.%s" % (filename, get_current_datetime(), ext)
+    return os.path.join('images/', filename)
+
+class MealImage(models.Model):
+    meal_pic= models.ImageField('Meal Pic',blank=False, upload_to = rename_upload_image_meals_temp)
+    class Meta:
+        verbose_name = _("mealimage")
+        verbose_name_plural = _("mealimages")
+
+    def __str__(self):
+        return self.meal_pic.url
+
+    def get_absolute_url(self):
+        return reverse("mealimage_detail", kwargs={"pk": self.pk})
 
 

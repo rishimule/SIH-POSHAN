@@ -7,7 +7,7 @@ def return_calories_proteins(image='https://www.vegrecipesofindia.com/wp-content
         Dict: {proteins, calories}
     """
     # your code here
- 
+    print(f'Image received was {image}')
 
     return {
         'proteins' : 66,

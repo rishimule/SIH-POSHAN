@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>meal test</title>
 </head>
 
@@ -10,7 +11,24 @@
     <div class="container">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %} {{ form|crispy }}
-            <input type="submit" value="Save">
+            {% if temp_meal_pic %}
+            <input type="hidden" name="mealimage_id" value="{{temp_meal_pic.pk}}">
+
+            <img src="{{temp_meal_pic.meal_pic.url}}" name="meal_pic"
+                class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
+                alt="{{temp_meal_pic.meal_pic.url}}">
+
+            <button formaction="{{next_action_url}}" class="btn btn-primary d-block btn-user w-100" type="submit">
+                Upload Meal
+            </button>
+
+            {% else %}
+            <button formaction="{{next_action_url}}" class="btn btn-success d-block btn-user w-100" type="submit">
+                Upload Photo
+            </button>
+
+
+            {% endif %}
         </form>
     </div>
 </body>

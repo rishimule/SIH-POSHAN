@@ -10,7 +10,7 @@ urlpatterns = [
     path('update_profile_pic/', views.update_profile_pic,           name='update_profile_pic'),
     
     # MEAL
-    path('todays_meal/',        views.MealCreateView.as_view(),     name='todays_meal'),
+    path('todays_meal/',        views.mealCreateView,               name='todays_meal'),
     path('meal_detail/<pk>/',   views.MealDetailView.as_view(),     name='meal_detail'),
     
     # STUDENT

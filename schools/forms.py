@@ -17,10 +17,16 @@ class StudentForm(forms.ModelForm):
         # exclude = ('current_class')
 
 class MealForm(forms.ModelForm):
-    
+    date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 
     class Meta:
         model = Meal
-        fields = ("__all__")
+        exclude = ('school','calories','proteins')
+        
+class MealForm2(forms.ModelForm):
+    date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 
+    class Meta:
+        model = Meal
+        exclude = ('school','meal_pic')
 
 class SchoolForm(forms.ModelForm):
     
