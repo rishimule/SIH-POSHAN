@@ -1,4 +1,9 @@
-Meal,calories,proteins,labels
-Dal_rice,395.0,17.0,0
-Kichdi,120.0,12.4,1
-Chapati,264.0,9.61,2 
+Meal,calories,proteins
+Aloo_puri,141.95,3.27
+Aloo_sabji_chapati,158.75,4.04
+Chole_and_puri,237.23,7.18
+Chole_chapati,224.44,8.39
+Dal_rice,115,3.97
+Idli_sambhar,100.5,4.5
+Khichdi,356.99,17.82
+Pohe,110,2
