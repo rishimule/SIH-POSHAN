@@ -26,7 +26,7 @@ class District(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='districts')
     name = models.CharField(max_length=150)
     email = models.EmailField( max_length=254)
-    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_district_profile)
+    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_district_profile ,default='images\profile\state\default\default_state.png', max_length=999)
     address_line1 = models.CharField( max_length=250)
     address_line2 = models.CharField( max_length=250)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 

@@ -12,12 +12,36 @@
 <div class="container">
     <div class="card shadow-lg">
         <div class="card-body">
+            <!-- FORM -->
             <form action="{% url 'schools:redirect_to_add_attendence' %}" method="post">
                 {% csrf_token %}
-                {{form1|crispy}}
-                <!-- <button type="submit" onclick="goadd();" class="btn btn-danger" btn-lg btn-block>Attendence</button> -->
-                <button type="submit" class="btn btn-danger" btn-lg btn-block>Attendence</button>
+                {% load formcss %}
+                {{ form.non_field_errors }}
+                {% for field in form1 %}
+                <p>
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{ field.label }}
+                        {% if field.field.required %}
+                        <span style="color: red ;">*</span>
+                        {% endif %}
+                    </label>
+                    {{ field|addclass:"form-control" }}
+                    {% if field.errors %}
+                    <div class="alert alert-danger alert-sm form_alert">{{ field.errors }}</div>
+                    {% endif %}
+                    <small id="helpId" class="text-muted">{{ field.help_text }}</small>
+                </div>
+                </p>
+                {% endfor %}
+                <!-- BUTTON -->
+                <p>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger form-control">Attendence</button>
+                </div>
+                </p>
             </form>
+            <!-- END FORM -->
+            
         </div>
     </div>
 </div>

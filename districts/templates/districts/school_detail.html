@@ -26,10 +26,157 @@ School Details
 
 <!-- ----------------------------------------------Body BLOCK---------------------------------------------- -->
 {% block body %}
-
-<div class="container">
-    {{school}}
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">{{school.name}}</h3>
+    <div class="row mb-3">
+        <div class="col-xxl-8" style="width: 1244.263px;">
+            <div class="card shadow mb-3">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold">{{school.name}}</p>
+                </div>
+                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4"
+                        src="{{school.profile_pic.url}}" width="160" height="160" />
+                    <div class="mb-3"></div><button class="btn btn-primary btn-sm" type="button">Change Photo</button>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label"
+                                        for="name"><strong>Name</strong></label><input id="name" class="form-control"
+                                        type="text" placeholder="{{school.name}}" name="name" disabled /></div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label" for="email"><strong>UDIC
+                                            No</strong><br /></label><input id="email-1" class="form-control"
+                                        type="number" placeholder="{{school.udise_code}}" name="udic_no" /></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <div class="card shadow border-start-primary py-2"
+                                        style="background: linear-gradient(45deg, var(--bs-pink), white);">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col me-2">
+                                                    <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span
+                                                            style="color: rgb(0,0,0);font-size: 16px;">Meals
+                                                            served(monthly</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0" style="font-size: 20;"><span
+                                                            class="text-center">9854</span></div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-fire fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <div class="card shadow border-start-success py-2"
+                                        style="background: linear-gradient(45deg, var(--bs-yellow), white);">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col me-2">
+                                                    <div class="text-uppercase text-success fw-bold text-xs mb-1"><span
+                                                            style="font-size: 16px;color: rgb(0,0,0);">Meals served
+                                                            (weekly)</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0"><span>2,150</span></div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-fire fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <div class="card shadow border-start-info py-2"
+                                        style="background: linear-gradient(45deg, var(--bs-purple), white);">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col me-2">
+                                                    <div class="text-uppercase text-info fw-bold text-xs mb-1"><span
+                                                            style="color: rgb(0,0,0);font-size: 16px;">today&#39;s
+                                                            attendance</span></div>
+                                                    <div class="row g-0 align-items-center">
+                                                        <div class="col-auto">
+                                                            <div class="text-dark fw-bold h5 mb-0 me-3"><span>50%</span>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                        <div class="col">
+                                                            <div class="progress progress-sm">
+                                                                <div class="progress-bar bg-info" aria-valuenow="50"
+                                                                    aria-valuemin="0" aria-valuemax="100"
+                                                                    style="width: 50%;"><span
+                                                                        class="visually-hidden">50%</span></div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i
+                                                        class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <div class="card shadow border-start-warning py-2"
+                                        style="background: linear-gradient(45deg, var(--bs-red), white);">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col me-2">
+                                                    <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span
+                                                            style="color: rgb(0,0,0);font-size: 16px;">average daily
+                                                            meals served</span></div>
+                                                    <div class="text-dark fw-bold h5 mb-0"><span>309</span></div>
+                                                </div>
+                                                <div class="col-auto"><i
+                                                        class="fas fa-comments fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold">Meal Details</p>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3"><label class="form-label" for="address"><strong>Date</strong></label><input
+                                class="form-control" type="date" style="width: 373.263px;" /></div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label" for="city"><strong>Meal
+                                            Name</strong></label><input id="city-1" class="form-control" type="text"
+                                        placeholder="Dal rice" name="meal_name" /></div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label"
+                                        for="calories"><strong>Calories</strong></label><input id="country-2"
+                                        class="form-control" type="text" placeholder="450" name="calories" /></div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label"
+                                        for="proteins"><strong>Proteins</strong></label><input id="country-3"
+                                        class="form-control" type="text" placeholder="30" name="proteins" /></div>
+                            </div>
+                        </div>
+                        <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit"><a href="meal_list.html"
+                                    style="color: rgb(255,255,255);">Show All Meals</a></button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 {% endblock body %}
 

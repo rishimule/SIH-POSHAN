@@ -1,9 +1,9 @@
 .gitignore
 db.sqlite3
-*/__pycache__/*
-*/migrations/*
-.vscode/*
+**/__pycache__/**
+**/migrations/**
+.vscode/**
 groom.manifest
-staticfiles/*
-*.out
-
+staticfiles/**
+**.out
+**/__pycache__/**

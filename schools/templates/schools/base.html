@@ -16,6 +16,10 @@
     <script src="https://unpkg.com/htmx.org@1.8.0"
         integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous">
         </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+        integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     {% block extrastyle %}
 
     {% endblock extrastyle %}
@@ -34,7 +38,7 @@
                 <hr class="sidebar-divider my-0" />
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'schools:dashboard' %}"><i
+                        <a class="nav-link" href="{% url 'schools:dashboard' %}"><i
                                 class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                     </li>
                     <li class="nav-item">
@@ -53,9 +57,9 @@
                         <a class="nav-link" href="{% url 'schools:attendence' %}"><i
                                 class="fas fa-table"></i><span>Attendence</span></a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-table"></i><span>Student Details</span></a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'schools:create_students' %}"><i
                                 class="fas fa-user-circle"></i><span>Register Students</span></a>

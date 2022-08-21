@@ -20,6 +20,11 @@ from .models import District
 def dashboardView(request):
     return render(request, 'districts/dashboard.html')
 
+@user_passes_test(is_in_group_districts, login_url='/')
+@login_required
+def profileView(request):
+    return render(request, 'districts/profile.html')
+
 class SchoolCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = School
     template_name = "districts/register_school.html"

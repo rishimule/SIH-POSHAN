@@ -10,6 +10,11 @@ urlpatterns = [
         view = views.dashboardView,                
         name = 'dashboard'
     ),
+    path(
+        route= 'profile/',                    
+        view = views.profileView,                
+        name = 'profile'
+    ),
     
     # SCHOOL
     path(

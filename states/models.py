@@ -23,7 +23,7 @@ class State(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='states')
     name = models.CharField(max_length=150)
     email = models.EmailField( max_length=254)
-    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_state_profile,default='images\profile\state\default\default_state.png')
+    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_state_profile,default='images\profile\state\default\default_state.png', max_length=999)
     address_line1 = models.CharField( max_length=250, blank=True, null=True)
     address_line2 = models.CharField( max_length=250, blank=True, null=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 

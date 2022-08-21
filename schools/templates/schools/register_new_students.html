@@ -8,12 +8,35 @@
     <div class="card shadow-lg">
         <div class="card-body">
             <h1>Register a new student</h1>
+            <!-- FORM -->
             <form method="post">
+                {% load formcss %}
                 {% csrf_token %}
-                {{form|crispy}}
-                <button type="submit" class="btn btn-primary">Submit</button>
-
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                <p>
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{ field.label }}
+                        {% if field.field.required %}
+                        <span style="color: red ;">*</span>
+                        {% endif %}
+                    </label>
+                    {{ field|addclass:"form-control" }}
+                    {% if field.errors %}
+                    <div class="alert alert-danger alert-sm form_alert">{{ field.errors }}</div>
+                    {% endif %}
+                    <small id="helpId" class="text-muted">{{ field.help_text }}</small>
+                </div>
+                </p>
+                {% endfor %}
+                <!-- BUTTON -->
+                <p>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Submit</button>
+                </div>
+                </p>
             </form>
+            <!-- END FORM -->
         </div>
     </div>
 </div>

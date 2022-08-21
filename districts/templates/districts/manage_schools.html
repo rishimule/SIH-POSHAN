@@ -10,6 +10,8 @@ Manage Schools
 
 <!-- ----------------------------------------------HEAD BLOCK---------------------------------------------- -->
 {% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 
 {% endblock head %}
 
@@ -27,44 +29,71 @@ Manage Schools
 <!-- ----------------------------------------------Body BLOCK---------------------------------------------- -->
 {% block body %}
 
-<div class="container">
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">School List</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">School Info</p>
+        </div>
 
-    <div class="card-deck">
+        <div class="card-body">
 
-        {% for school in school_list %}
-        <p>
-        <div class="card shadow-lg">
-            <div class="card-body">
-                <h5 class="card-title">{{school.name}}</h5>
-                <p class="card-text">
-                    {{school.udise_code}}
-                </p>
-                <a href="{% url 'districts:school_detail' pk=school.pk %}" class="btn btn-primary">Details</a>
-                <a href="#" class="btn btn-danger" role="button">Delete</a>
+
+            <p>
+                <a name="" id="" class="btn btn-primary" href="{% url 'districts:register_school' %}" role="button">
+                    Add School
+                </a>
+            </p>
+
+            <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" width="100%" id="class-table">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Name</th>
+                            <th>UDIC No</th>
+                            <th>Edit Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Start: Duplicate Table Row -->
+                        {% for school in school_list %}
+                        <tr>
+                            <td>{{school.name}}</td>
+                            <td> {{school.udise_code}}</td>
+                            <td style="text-align: center;">
+                                <a class="btn btn-info" role="button"
+                                    href="{% url 'districts:school_detail' pk=school.pk %}">
+                                    <span class="text-white-50 icon">
+                                        <i class="far fa-edit"></i>
+                                    </span>
+                                    <span class="text-white text">View</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- End: Duplicate Table Row -->
+                    </tbody>
+                </table>
 
             </div>
-
-
         </div>
-        </p>
-
-        {% endfor %}
     </div>
-
-
 </div>
+
+
 
 {% endblock body %}
 
 <!-- ----------------------------------------------Script BLOCK---------------------------------------------- -->
 
 {% block script %}
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script>
-
-
-
-
-
+    $(document).ready(function () {
+        $('#class-table').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
 </script>
-
 {% endblock script %}

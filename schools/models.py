@@ -38,7 +38,7 @@ class School(models.Model):
     email = models.EmailField( max_length=254)
     name = models.CharField(max_length=150)
     udise_code = models.CharField(max_length=150, unique=True)
-    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_school_profile)
+    profile_pic= models.ImageField(blank=False, upload_to=rename_upload_image_school_profile, default='images\profile\state\default\default_state.png', max_length=999)
     # ADDRESS
     address_line1 = models.CharField( max_length=250)
     address_line2 = models.CharField( max_length=250)
@@ -73,7 +73,7 @@ class School(models.Model):
 
 class Class(models.Model):
     class_std = models.IntegerField(choices=std_choices())
-    class_name = models.CharField(max_length=50, unique=True)
+    class_name = models.CharField(max_length=50)
     year = models.IntegerField(choices=year_choices(), default=current_year)
     school = models.ForeignKey(School, on_delete=models.CASCADE,related_name='classes')
 
@@ -107,6 +107,7 @@ class Student(models.Model):
     # age = models.IntegerField(blank=True, null=True)
     created  = models.DateTimeField(editable=False, default=timezone.now)
     modified = models.DateTimeField(default=timezone.now, editable=False)
+    
 
     class Meta:
         verbose_name = "student"
