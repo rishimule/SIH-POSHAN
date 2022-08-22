@@ -8,8 +8,8 @@
 <div class="container-fluid">
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark mb-0">Dashboard</h3>
-        <a class="btn btn-primary btn-sm d-none d-sm-inline-block"  value="Print this page" onClick="window.print()" role="button" href="#"><i
-                class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate
+        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" value="Print this page" onClick="window.print()"
+            role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate
             Report</a>
     </div>
     <div class="row">
@@ -63,7 +63,8 @@
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-info" aria-valuenow="{{todays_attendence_percentage}}" aria-valuemin="0"
+                                        <div class="progress-bar bg-info"
+                                            aria-valuenow="{{todays_attendence_percentage}}" aria-valuemin="0"
                                             aria-valuemax="100" style="width: {{todays_attendence_percentage}}%">
                                             <span class="visually-hidden">{{todays_attendence_percentage}}%</span>
                                         </div>
@@ -237,9 +238,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div >
+                    <div>
                         <div sty>
-                            <canvas style="padding: auto;" id="active-comp-chart" ></canvas>
+                            <canvas style="padding: auto;" id="active-comp-chart"></canvas>
                         </div>
 
                         <script>
@@ -304,6 +305,188 @@
                                 }
                             });
 
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HASHIR PRE PRIMARY LINE -->
+        <div class="col-lg-7 col-xl-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
+                            data-bs-toggle="dropdown" type="button">
+                            <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </button>
+                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                            <p class="text-center dropdown-header">Graph</p>
+                            <a class="dropdown-item" href="#">&nbsp;Details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Mean Calories</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div sty>
+                            <canvas id="midday-chart" width="100" height="50"></canvas>
+                        </div>
+
+                        <script>
+                            const mdctx = document.getElementById('midday-chart');
+                            let calorieCount = [425, 450, 455, 461, 420, 475, 453];
+                            let proteinContent = [12, 14, 9, 13, 12, 8, 10];
+
+                            const mdChart = new Chart(mdctx, {
+                                type: 'line',
+                                data: {
+                                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                                    datasets: [{
+                                        label: 'Caolries',
+                                        data: calorieCount,
+                                        backgroundColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 2
+                                    },
+                                    {
+                                        label: 'Protein Content',
+                                        data: proteinContent,
+                                        backgroundColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 2
+                                    }]
+
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HASHIR PRE PRIMARY LINE -->
+        <div class="col-lg-7 col-xl-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
+                            data-bs-toggle="dropdown" type="button">
+                            <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </button>
+                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                            <p class="text-center dropdown-header">Graph</p>
+                            <a class="dropdown-item" href="#">&nbsp;Details</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Mean Calories</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div sty>
+                            <canvas id="midday-chart-secondary" width="100" height="50"></canvas>
+                        </div>
+
+                        <script>
+                            const mdctx1 = document.getElementById('midday-chart-secondary');
+                            let calorieCount1 = [725, 750, 655, 761, 720, 675, 653];
+                            let proteinContent1 = [12, 14, 19, 13, 22, 18, 20];
+
+                            const mdChart1 = new Chart(mdctx1, {
+                                type: 'line',
+                                data: {
+                                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                                    datasets: [{
+                                        label: 'Calories',
+                                        data: calorieCount1,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 139, 1)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(86, 206, 255, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 2
+                                    },
+                                    {
+                                        label: 'Protein Content',
+                                        data: proteinContent1,
+                                        backgroundColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(132, 99, 255, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 2
+                                    }]
+
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
                         </script>
                     </div>
                 </div>
