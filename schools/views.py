@@ -1,4 +1,5 @@
 from urllib import request
+from pprint import pprint as pp
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -22,14 +23,13 @@ def dashboardView(request):
     todays_date = datetime.date.today()
     
     # MEALS SERVED MONTHLY
-    meals_served_monthly = Attendence.objects.filter(date__year = todays_date.year, date__month = todays_date.month).count()
+    meals_served_monthly = Attendence.objects.filter(student__current_class__school = school , date__in=Meal.objects.filter(date__lte = todays_date ,date__year = todays_date.year, date__month = todays_date.month, school = school).values('date')).count()
     
     # MEALS SERVED WEEKLY
-    meals_served_weekly = Attendence.objects.filter(date__lte = todays_date, date__gte = todays_date - datetime.timedelta(days = 7)).count()
-    
-    
+    meals_served_weekly = Attendence.objects.filter(student__current_class__school = school , date__in=Meal.objects.filter(date__lte = todays_date , date__gte = todays_date - datetime.timedelta(days = 7),  school = school).values('date')).count()
+     
     # TODAYS ATTENDENCE
-    todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date).filter(student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
+    todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date, student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
     
     # AVERAGE DAILY MEAL SERVED
     distinct_pairs_count = Attendence.objects.values('date','student').distinct().count()
@@ -221,14 +221,15 @@ def mealCreateView(request):
         meal_pic = temp_meal_pic.meal_pic
         calories = float(health_data['calories'])
         proteins = float(health_data['proteins']) 
+        quantity = int(request.POST['quantity'])
         
         mealinstance = Meal(
             school = school,
             name = name,
             date = date,
             meal_pic= meal_pic,
-            calories = calories,
-            proteins = proteins
+            calories = calories * quantity / 100,
+            proteins = proteins * quantity / 100,
         )
         print(mealinstance)
         

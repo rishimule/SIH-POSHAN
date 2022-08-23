@@ -313,7 +313,7 @@
 
         <!-- HASHIR PRE PRIMARY LINE -->
         <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4" id="lineChart1">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
                     <div class="dropdown no-arrow">
@@ -331,8 +331,8 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <div sty>
-                            <canvas id="midday-chart" width="100" height="50"></canvas>
+                        <div class="line-Chart" sty>
+                            <canvas id="midday-chart"></canvas>
                         </div>
 
                         <script>
@@ -397,6 +397,14 @@
                                 }
                             });
                         </script>
+
+                        <style>
+                            #lineChart1 {
+                                box-sizing: border-box;
+                                width: 40vw;
+                                
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
@@ -404,7 +412,7 @@
 
         <!-- HASHIR PRE PRIMARY LINE -->
         <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4" id="lineChart2">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
                     <div class="dropdown no-arrow">
@@ -488,6 +496,13 @@
                                 }
                             });
                         </script>
+                        <style>
+                            #lineChart2 {
+                                box-sizing: border-box;
+                                width: 40vw;
+                                
+                            }
+                        </style>
                     </div>
                 </div>
             </div>

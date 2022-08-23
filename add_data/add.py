@@ -63,9 +63,15 @@ def add_class(num=1):
         class_std = random.randint(-2, 10)
         while class_std==0:
             class_std = random.randint(-2, 10)
-        class_name = fake.bothify(text=f"{class_std}?", letters='ABCDE')
+        if class_std == -1:
+            class_name = fake.bothify(text=f"Sr. KG?", letters='ABCDE')
+        elif class_std == -2:
+            class_name = fake.bothify(text=f"Jr. KG?", letters='ABCDE')
+        else:
+            class_name = fake.bothify(text=f"{class_std}?", letters='ABCDE')
         year = random.randint(2022, 2023)
-        school = School.objects.order_by('?').first()
+        # school = School.objects.order_by('?').first()
+        school = School.objects.filter(name__icontains = 'adarsh').first()
         try:
             myclass = Class(
                 class_std=class_std,
@@ -94,6 +100,7 @@ def add_student(num=1):
             end_date="-6y"
         )
         current_class = Class.objects.order_by('?').first()
+        current_class = Class.objects.filter(school__name__icontains='adarsh').order_by('?').first()
         gr_no = fake.bothify(text=f"############", letters='ABCDE')
         gender = 'Male' if bool(random.getrandbits(1)) else 'Female'
         current_height = random.randint(8.0, 160)
@@ -122,8 +129,8 @@ def add_student(num=1):
 
 
 def add_attendence(num=1):
-    date = dtdate.today()
-    for _ in range(15):
+    date = dtdate.today() + timedelta(days = 1)
+    for _ in range(100):
         date = date - timedelta(days = 1)
         print(date)
         if date.weekday() < 5:

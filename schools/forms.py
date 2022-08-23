@@ -18,12 +18,15 @@ class StudentForm(forms.ModelForm):
 
 class MealForm(forms.ModelForm):
     date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 
+    quantity = forms.IntegerField(label='Quantity per plate (in grams)', required=True, initial=100)
+    
     class Meta:
         model = Meal
         exclude = ('school','calories','proteins')
         
 class MealForm2(forms.ModelForm):
     date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 
+    
     class Meta:
         model = Meal
         exclude = ('school','meal_pic')
