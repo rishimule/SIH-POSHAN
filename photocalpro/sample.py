@@ -108,8 +108,8 @@ def run(img_file = "C:/my folder/dataset_pics/asp (2).jpg"):
         return{
             "proteins" : pro,
             "calories" : cal,
-            "suggestions_for_calories":lol,
-            "suggestions_for_proteins":lol1
+            "suggestions_to__satisfy_calories":lol,
+            "suggestions_to_satisfy_proteins":lol1
         }
 
 
