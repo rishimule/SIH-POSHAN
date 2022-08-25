@@ -178,7 +178,7 @@ class HealthRecord(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="healthrecords")
     height = models.IntegerField(_("Height (in cm)"), blank=False, null=False)
     weight = models.IntegerField(_("Weight (in Kg)"), blank=False, null=False)
-    haemoglobin = models.FloatField(_("Haemoglobin count"), blank=False, null=False)
+    haemoglobin = models.FloatField(_("Haemoglobin count"), blank=True, null=False, default=0)
     cognitive_score = models.IntegerField(_("Cognitive Test Score"), blank=False, null=False, default=0 ,validators=[
             MaxValueValidator(100),
             MinValueValidator(0)
@@ -216,6 +216,8 @@ class Meal(models.Model):
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
     quantity = models.IntegerField(_("Quantity per plate (in grams)"), blank=False, null=False, default=100)
+    latitude = models.FloatField(_("Latitude"), blank=True, null=True, editable=False)
+    longitude =models.FloatField(_("Longitude"), blank=True, null=True, editable=False)
     # quantity_per_plate_primary = models.FloatField(_("Quantity to serve - Primary Students (in grams) "), blank=True, null=True)
     # quantity_per_plate_secondary = models.FloatField(_("Quantity to serve - Secondary Students (in grams)"), blank=True, null=True)
 

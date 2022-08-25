@@ -191,6 +191,17 @@ class MealDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return cond1 and cond2
 
 
+class MealListView(TemplateView):
+    template_name = "schools/meal_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["meal_list"] = self.request.user.schools.meals.all()
+        return context
+    
+    
+
+
 
 def mealCreateView(request):
     if request.method == 'POST' and request.FILES:

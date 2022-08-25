@@ -11,6 +11,7 @@ urlpatterns = [
     
     # MEAL
     path('todays_meal/',        views.mealCreateView,               name='todays_meal'),
+    path('meal_list/',          views.MealListView.as_view(),               name='meal_list'),
     path('meal_detail/<pk>/',   views.MealDetailView.as_view(),     name='meal_detail'),
     
     # STUDENT
