@@ -126,7 +126,7 @@ class Student(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,13}$', 
                                  message="Phone number must be entered in the format: '+999999999'. Up to 13 digits allowed."
                                 )
-    # contact_number = models.CharField(validators=[phone_regex], max_length=17, blank=False, null=False, default='+918828443231') # Validators should be a list
+    contact_number = models.CharField(validators=[phone_regex], max_length=17, blank=False, null=False, default='+918828443231') # Validators should be a list
     created  = models.DateTimeField(editable=False, default=timezone.now)
     modified = models.DateTimeField(default=timezone.now, editable=False)
  

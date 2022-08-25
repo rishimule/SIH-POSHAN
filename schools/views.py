@@ -337,7 +337,7 @@ def add_healthrecord(request,studentpk):
             healthrecord.save()
             send_sms(
                 body=f".\n\nThe health details of {student.first_name} {student.last_name} was updated on {healthrecord.datetime.date()}.\n Height = {healthrecord.height}, \n Weight = {healthrecord.weight}, \n Bmi = {round(healthrecord.bmi,2)}",
-                to='+918828443231'
+                to=healthrecord.student.contact_number
             )
             
             return redirect(reverse('schools:class_detail', kwargs={'pk':student.current_class.pk}))
