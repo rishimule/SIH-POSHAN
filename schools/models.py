@@ -73,6 +73,21 @@ class School(models.Model):
         return super(School, self).save(*args, **kwargs)
 
 
+class SchoolLevel(models.Model):
+
+    name = models.CharField(_("Level"), max_length=200)
+    school = models.ForeignKey(School, related_name='schoollevels', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("schoollevel")
+        verbose_name_plural = _("schoollevels")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("schoollevel_detail", kwargs={"pk": self.pk})
+
 
 
 class Class(models.Model):
@@ -196,8 +211,8 @@ class Meal(models.Model):
     meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
-    quantity_per_plate_primary = models.FloatField(_("Quantity to serve - Primary Students (in grams) "), blank=True, null=True)
-    quantity_per_plate_secondary = models.FloatField(_("Quantity to serve - Secondary Students (in grams)"), blank=True, null=True)
+    # quantity_per_plate_primary = models.FloatField(_("Quantity to serve - Primary Students (in grams) "), blank=True, null=True)
+    # quantity_per_plate_secondary = models.FloatField(_("Quantity to serve - Secondary Students (in grams)"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("meal")

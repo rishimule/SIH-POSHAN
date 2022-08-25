@@ -209,17 +209,19 @@ def mealCreateView(request):
         proteins = float(health_data['proteins']) 
         quantity_per_plate_primary   = round( 450 *100 / calories, 2)
         quantity_per_plate_secondary = round( 750 *100 / calories, 2)
-        # quantity = int(request.POST['quantity'])
+        quantity = int(request.POST['quantity'])
         
         mealinstance = Meal(
             school = school,
             name = name,
             date = date,
             meal_pic= meal_pic,
-            calories = calories,
-            proteins = proteins,
-            quantity_per_plate_primary = quantity_per_plate_primary,
-            quantity_per_plate_secondary = quantity_per_plate_secondary,
+            calories = calories * quantity / 100,
+            proteins = proteins * quantity / 100,
+            # calories = calories,
+            # proteins = proteins,
+            # quantity_per_plate_primary = quantity_per_plate_primary,
+            # quantity_per_plate_secondary = quantity_per_plate_secondary,
         
         )
         print(mealinstance)
@@ -231,6 +233,7 @@ def mealCreateView(request):
             'next_action_url' : reverse('schools:todays_meal')
         }
         return render(request, "schools/todays-meal.html", context)
+        
     
     elif request.method == 'POST':
             print(request.POST)
@@ -257,7 +260,7 @@ def mealCreateView(request):
                 print('Deleted Old Meal Record!')
             mealinstance.save()
             print(f"{mealinstance} added to database!")
-            return redirect(reverse('schools:dashboard'))
+            return redirect(reverse('schools:meal_detail', kwargs={'pk': mealinstance.pk}))
     else:
         form = MealForm()
         context = {
