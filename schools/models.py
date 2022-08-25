@@ -216,8 +216,8 @@ class Meal(models.Model):
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
     quantity = models.IntegerField(_("Quantity per plate (in grams)"), blank=False, null=False, default=100)
-    latitude = models.FloatField(_("Latitude"), blank=True, null=True, editable=False)
-    longitude =models.FloatField(_("Longitude"), blank=True, null=True, editable=False)
+    latitude = models.FloatField(_("Latitude"), blank=True, null=False)
+    longitude =models.FloatField(_("Longitude"), blank=True, null=False)
     # quantity_per_plate_primary = models.FloatField(_("Quantity to serve - Primary Students (in grams) "), blank=True, null=True)
     # quantity_per_plate_secondary = models.FloatField(_("Quantity to serve - Secondary Students (in grams)"), blank=True, null=True)
 

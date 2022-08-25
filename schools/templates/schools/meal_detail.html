@@ -1,78 +1,76 @@
-{% extends "schools/base.html" %}
+{% extends 'schools/base.html' %}
 
-{% block extrastyle %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
-
-{% endblock extrastyle %}
-
+<!-- Title -->
+{% block title %} Meal Details {% endblock title%}
+<!-- block content -->
 {% block content %}
+<!-- <h1>Meal Details</h1> -->
 
-
-
-
-<div class="container">
-
-    <p>
-        <a name="" id="" class="btn btn-primary" href="{% url 'schools:todays_meal' %}" role="button">
-            Add Meal
-        </a>
-    </p>
-    <div class="card shadow-lg">
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Meal Details</h3>
+    <div class="card shadow">
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-sm table-striped" width="100%" id="student-table">
-                    <thead>
-                        <tr style="text-align: center;">
-                            <th>Meal</th>
-                            <th>Date</th>
-                            <th>Calories</th>
-                            <th>Proteins</th>
-                            <th>Quantity</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Start: Duplicate Table Row -->
-                        {% for meal in meal_list %}
-                        <tr>
-                            <td>{{meal.name}}</td>
-                            <td>{{meal.date}}</td>
-                            <td>{{meal.calories}}</td>
-                            <td>{{meal.proteins}}</td>
-                            <td>{{meal.quantity}}</td>
-                            <td style="text-align: center;">
-                                <a class="btn btn-success" role="button"
-                                    href="{% url 'schools:meal_detail' pk=meal.pk %}">
-                                    <span class="text-white-50 icon">
-                                        <i class="far fa-edit"></i>
-                                    </span>
-                                    <span class="text-white text">Detail</span>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        <!-- End: Duplicate Table Row -->
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;"><strong>Meal Name :
+                                    {{meal.name}}</strong><br /></h4>
+                            <h4 class="card-title" style="text-align: center;">Date : {{meal.date}}<br /></h4>
+                            <div class="container-fluid">
+                                <p class="card-text" style="text-align: center;"><img class="img-fluid"
+                                        src="{{meal.meal_pic.url}}" style="text-align: center;"></p>
+                            </div>
+                            <div>
+                                <h4 class="card-title" style="text-align: center;">Calories : {{meal.calories}}<br />
+                                </h4>
+                                <h4 class="card-title" style="text-align: center;">Proteins : {{meal.proteins}}<br />
+                                </h4>
+                                <h4 class="card-title" style="text-align: center;">Latitude : {{meal.latitude}}<br />
+                                </h4>
+                                <h4 class="card-title" style="text-align: center;">Longitude : {{meal.longitude}}<br />
+                                </h4>
+                                <br><br>
+                                <div class="container">
+                                    <div class="card">
+                                        <div class="card-body"><iframe allowfullscreen frameborder="0" loading="lazy" src="https://www.google.com/maps/embed/v1/search?key=AIzaSyB5gTJ-GGctowsHJbIgsvdqvbelEaZF8wA&amp;q={{meal.latitude}}%2C{{meal.longitude}}&amp;zoom=15&amp;maptype=satellite" width="100%" height="400"></iframe></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <h5>
+        Date : {{meal.date}}
+        <br>
+        Meal Name : {{meal.name}}
+    </h5>  -->
+</div>
+<div class="container">
+    <!-- <img src="{{meal.meal_pic.url}}"> -->
+</div>
+{% endblock content %}
+
+
+<!-- <div class="container-fluid">
+    <h3 class="text-dark mb-4">Meal Details</h3>
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;"><strong>Meal Name{{meal.name}}</strong><br /></h4>
+                            
+                            <p class="card-text" style="text-align: center;"><img src="{{meal.meal_pic.url}}" style="text-align: center;"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-{% endblock content %}
-
-{% block extrascript %}
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#student-table').DataTable();
-        $('.dataTables_length').addClass('bs-select');
-    });
-</script>
-{% endblock extrascript %}
+ -->

@@ -204,6 +204,7 @@ class MealListView(TemplateView):
 
 
 def mealCreateView(request):
+    # After Image Upload
     if request.method == 'POST' and request.FILES:
         print(request.POST)
         print(request.FILES)
@@ -224,6 +225,8 @@ def mealCreateView(request):
         # quantity_per_plate_primary   = round( 450 *100 / calories, 2)
         # quantity_per_plate_secondary = round( 750 *100 / calories, 2)
         quantity = int(request.POST['quantity'])
+        latitude = request.POST['latitude']
+        longitude = request.POST['longitude']
         
         mealinstance = Meal(
             school = school,
@@ -233,6 +236,8 @@ def mealCreateView(request):
             meal_pic= meal_pic,
             calories = calories * quantity / 100,
             proteins = proteins * quantity / 100,
+            latitude = latitude,
+            longitude = longitude,
             # calories = calories,
             # proteins = proteins,
             # quantity_per_plate_primary = quantity_per_plate_primary,
@@ -249,7 +254,7 @@ def mealCreateView(request):
         }
         return render(request, "schools/todays-meal.html", context)
         
-    
+    # After meal upload
     elif request.method == 'POST':
             print(request.POST)
             print(request.FILES)
@@ -260,6 +265,8 @@ def mealCreateView(request):
             calories = request.POST['calories']
             quantity = request.POST['quantity']
             proteins = request.POST['proteins']
+            latitude = request.POST['latitude']
+            longitude = request.POST['longitude']
                       
             mealinstance = Meal(
                 school = school,
@@ -268,7 +275,9 @@ def mealCreateView(request):
                 meal_pic= meal_pic,
                 quantity = quantity,
                 calories = calories,
-                proteins = proteins
+                proteins = proteins,
+                latitude = latitude,
+                longitude = longitude,
             )
             print(mealinstance)
             if Meal.objects.filter(date=date).filter(school=school).exists():
@@ -278,6 +287,8 @@ def mealCreateView(request):
             mealinstance.save()
             print(f"{mealinstance} added to database!")
             return redirect(reverse('schools:meal_detail', kwargs={'pk': mealinstance.pk}))
+    
+    # First Visit
     else:
         form = MealForm()
         context = {

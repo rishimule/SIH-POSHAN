@@ -45,6 +45,15 @@
                                     </p>
                                     {% endfor %}
 
+                                    {% if not temp_meal_pic %}
+
+                                    <input type="hidden" id="latitude" name="latitude" value="1.2">
+                                    <input type="hidden" id="longitude" name="longitude" value="3.2">
+
+                                    {% endif %}
+
+
+
 
                                     {% if temp_meal_pic %}
 
@@ -77,3 +86,29 @@
     <div></div>
 </div>
 {% endblock content %}
+
+{% block extrascript %}
+
+
+{% if not temp_meal_pic %}
+
+<script>
+    function showPosition(position) {
+        lat.value = position.coords.latitude;
+        lon.value = position.coords.longitude;
+       }
+       
+    var lat = document.getElementById("latitude");
+    var lon = document.getElementById("longitude");
+
+    console.log(navigator.geolocation.getCurrentPosition(showPosition));
+
+
+
+</script>
+
+{% endif %}
+
+
+
+{% endblock extrascript %}
