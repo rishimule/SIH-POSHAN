@@ -211,6 +211,7 @@ class Meal(models.Model):
     meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
+    quantity = models.IntegerField(_("Quantity per plate (in grams)"), blank=False, null=False, default=100)
     # quantity_per_plate_primary = models.FloatField(_("Quantity to serve - Primary Students (in grams) "), blank=True, null=True)
     # quantity_per_plate_secondary = models.FloatField(_("Quantity to serve - Secondary Students (in grams)"), blank=True, null=True)
 

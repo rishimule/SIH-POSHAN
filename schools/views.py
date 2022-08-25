@@ -207,14 +207,15 @@ def mealCreateView(request):
         meal_pic = temp_meal_pic.meal_pic
         calories = float(health_data['calories'])
         proteins = float(health_data['proteins']) 
-        quantity_per_plate_primary   = round( 450 *100 / calories, 2)
-        quantity_per_plate_secondary = round( 750 *100 / calories, 2)
+        # quantity_per_plate_primary   = round( 450 *100 / calories, 2)
+        # quantity_per_plate_secondary = round( 750 *100 / calories, 2)
         quantity = int(request.POST['quantity'])
         
         mealinstance = Meal(
             school = school,
             name = name,
             date = date,
+            quantity = quantity,
             meal_pic= meal_pic,
             calories = calories * quantity / 100,
             proteins = proteins * quantity / 100,
@@ -243,6 +244,7 @@ def mealCreateView(request):
             date = request.POST['date']
             meal_pic = MealImage.objects.get(pk=request.POST['mealimage_id']).meal_pic
             calories = request.POST['calories']
+            quantity = request.POST['quantity']
             proteins = request.POST['proteins']
                       
             mealinstance = Meal(
@@ -250,6 +252,7 @@ def mealCreateView(request):
                 name = name,
                 date = date,
                 meal_pic= meal_pic,
+                quantity = quantity,
                 calories = calories,
                 proteins = proteins
             )
