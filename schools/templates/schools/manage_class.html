@@ -19,18 +19,21 @@
         <p>
         <div class="card shadow-lg">
             <div class="card-body">
-                <h5 class="card-title">{{class.class_name}}</h5>
+                <h2 class="card-title">{{class.class_name}}</h2>
                 <p class="card-text">
                     {{class.class_std}}
+                    <h5>
+                        School Name
+                    </h5>
                     {{class.school}}
                     {{class.year}}
                 <ul>
-                    {% for student in class.students.all %}
+                    <!-- {% for student in class.students.all %}
                     <li>
                         {{student}}
                         <br>
                     </li>
-                    {% endfor %}
+                    {% endfor %} -->
                 </ul>
                 </p>
                 <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
