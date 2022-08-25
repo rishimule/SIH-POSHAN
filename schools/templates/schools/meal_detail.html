@@ -4,9 +4,60 @@
 {% block title %} Meal Details {% endblock title%}
 <!-- block content -->
 {% block content %}
-<h1>Meal Details</h1>
-<div class="container">
-    {{meal.date}} {{meal.name}}
+<!-- <h1>Meal Details</h1> -->
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Meal Details</h3>
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;"><strong>Meal Name : {{meal.name}}</strong><br /></h4>
+                            <h4 class="card-title" style="text-align: center;">Date : {{meal.date}}<br /></h4>
+                            <div class="container-fluid">
+                                <p class="card-text" style="text-align: center;"><img class="img-fluid" src="{{meal.meal_pic.url}}" style="text-align: center;"></p>
+                            </div>
+                            <div>
+                            <h4 class="card-title" style="text-align: center;">Calories : {{meal.calories}}<br /></h4>
+                            <h4 class="card-title" style="text-align: center;">Proteins : {{meal.proteins}}<br /></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <!-- <h5>
+        Date : {{meal.date}}
+        <br>
+        Meal Name : {{meal.name}}
+    </h5>  -->
 </div>
-<img src="{{meal.meal_pic.url}}">
+<div class="container">
+<!-- <img src="{{meal.meal_pic.url}}"> -->
+</div>
 {% endblock content %}
+
+
+<!-- <div class="container-fluid">
+    <h3 class="text-dark mb-4">Meal Details</h3>
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;"><strong>Meal Name{{meal.name}}</strong><br /></h4>
+                            
+                            <p class="card-text" style="text-align: center;"><img src="{{meal.meal_pic.url}}" style="text-align: center;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ -->
+
