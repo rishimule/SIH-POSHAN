@@ -18,9 +18,9 @@
       Update Class
     </a>
   </p>
-  <div class="card shadow-lg" >
+  <div class="card shadow-lg">
     <div class="card-body">
-      <div  class="table-responsive" >
+      <div class="table-responsive">
         <table class="table table-hover table-sm table-striped" width="100%" id="student-table">
           <thead>
             <tr style="text-align: center;">
@@ -29,8 +29,11 @@
               <th>Gr no.</th>
               <th>DOB</th>
               <th>Gender</th>
+              <th>Height</th>
+              <th>Weight</th>
               <th>BMI</th>
-              <th>Edit</th>
+              <th>View</th>
+              <th>Add Health Record</th>
             </tr>
           </thead>
           <tbody>
@@ -42,16 +45,34 @@
               <td>{{student.gr_no}}</td>
               <td>{{student.dob}}</td>
               <td>{{student.gender}}</td>
-              <td style="color: red;">6.1</td>
-              <td style="text-align: center;">
-                <a class="btn btn-info" role="button"
-                  href="{% url 'schools:student_detail' pk=student.pk %}">
-                  <span class="text-white-50 icon">
-                    <i class="far fa-edit"></i>
-                  </span>
-                  <span class="text-white text">View</span>
-                </a>
-              </td>
+              <td>{{student.current_height}}</td>
+              <td>{{student.current_weight}}</td>
+              {% if student.getbmi > 0 and student.getbmi < 18.5 %} <td style="color: red;">
+
+                {% elif student.getbmi >= 18.5 and student.getbmi < 24.9 %} <td style="color: green;">
+                  {% else %}
+                  <td style="color: orange;">
+                    {% endif %}
+                    {{student.getbmi|floatformat:2}}
+                  </td>
+
+                  <td style="text-align: center;">
+                    <a class="btn btn-info" role="button" href="{% url 'schools:student_detail' pk=student.pk %}">
+                      <span class="text-white-50 icon">
+                        <i class="far fa-edit"></i>
+                      </span>
+                      <span class="text-white text">View</span>
+                    </a>
+                  </td>
+                  <td style="text-align: center;">
+                    <a class="btn btn-danger" role="button"
+                      href="{% url 'schools:add_health_record' studentpk=student.pk %}">
+                      <span class="text-white-50 icon">
+                        <i class="far fa-edit"></i>
+                      </span>
+                      <span class="text-white text">Add</span>
+                    </a>
+                  </td>
             </tr>
             {% endfor %}
             <!-- End: Duplicate Table Row -->

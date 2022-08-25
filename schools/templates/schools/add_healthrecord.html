@@ -1,0 +1,50 @@
+{% extends 'schools/base.html' %}
+
+{% block title %}Add Health Record{% endblock title %}
+
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">Add Health Record</h3>
+</div>
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <p><h1>{{student.first_name}} {{student.last_name}}</h1></p>
+            <!-- FORM -->
+            <form method="post">
+                {% csrf_token %}
+                {% load formcss %}
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                <p>
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{ field.label }}
+                        {% if field.field.required %}
+                        <span style="color: red ;">*</span>
+                        {% endif %}
+                    </label>
+                    {{ field|addclass:"form-control" }}
+                    {% if field.errors %}
+                    <div class="alert alert-danger alert-sm form_alert">{{ field.errors }}</div>
+                    {% endif %}
+                    <small id="helpId" class="text-muted">{{ field.help_text }}</small>
+                </div>
+                </p>
+                {% endfor %}
+                <!-- BUTTON -->
+                <p>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger form-control">Add health record</button>
+                </div>
+                </p>
+            </form>
+            <!-- END FORM -->
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

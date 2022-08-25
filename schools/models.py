@@ -1,4 +1,6 @@
 from datetime import datetime
+from msilib.schema import Property
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -71,6 +73,9 @@ class School(models.Model):
         print(self.user)
         return super(School, self).save(*args, **kwargs)
 
+
+
+
 class Class(models.Model):
     class_std = models.IntegerField(choices=std_choices())
     class_name = models.CharField(max_length=50)
@@ -92,7 +97,7 @@ class Student(models.Model):
     GENDER_CHOICES = (
         ('Male', 'Male'),
         ('Female', 'Female'),
-    	)
+    )
 
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
@@ -120,10 +125,6 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse("schools:student_detail", kwargs={"pk": self.pk})
 
-    # def get_queryset(self, *args, **kwargs):
-    #     qs = super(Student, self).get_queryset().annotate(age=int(self.calculate_age(self)))
-    #     return qs
-    
     @property    
     def age(self):
         born = self.dob
@@ -137,6 +138,10 @@ class Student(models.Model):
         self.modified = timezone.now()
         return super(Student, self).save(*args, **kwargs)
     
+    @property
+    def getbmi(self):
+        return (self.current_weight / ((self.current_height/100)**2))
+    
     @property    
     def calculate_age(self):
         born = self.dob
@@ -148,6 +153,43 @@ def rename_upload_image_meals(instance, filename):
     filename = "meals/%s/%s/%s.%s.%s.%s.%s" % (instance.school, instance.date, instance.name, str(instance.date), filename, get_current_datetime(), ext)
     return os.path.join('images/', filename)
 
+
+class HealthRecord(models.Model):
+    
+    datetime = models.DateTimeField(default=timezone.now, editable=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="healthrecords")
+    height = models.IntegerField(_("Height (in cm)"), blank=False, null=False)
+    weight = models.IntegerField(_("Weight (in Kg)"), blank=False, null=False)
+    haemoglobin = models.FloatField(_("Haemoglobin count"), blank=False, null=False)
+    cognitive_score = models.IntegerField(_("Cognitive Test Score"), blank=False, null=False, default=0 ,validators=[
+            MaxValueValidator(100),
+            MinValueValidator(0)
+        ])
+
+    
+
+    class Meta:
+        verbose_name = _("healthrecord")
+        verbose_name_plural = _("healthrecords")
+        
+    def save(self, *args, **kwargs):
+        ''' On save, update in Student Record '''
+        mystudent = self.student
+        mystudent.current_height = self.height
+        mystudent.current_weight = self.weight
+        mystudent.save()
+        return super(HealthRecord, self).save(*args, **kwargs)
+    
+    @property
+    def bmi(self):
+        return (self.weight / ((self.height / 100)**2))
+
+    def __str__(self):
+        return f"{self.student} --> {self.datetime}"
+
+    def get_absolute_url(self):
+        return reverse("healthrecord_detail", kwargs={"pk": self.pk})
+
 class Meal(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='meals')
     name = models.CharField("Meal Name",max_length=999)
@@ -155,6 +197,8 @@ class Meal(models.Model):
     meal_pic= models.ImageField(blank=False, upload_to = rename_upload_image_meals)
     calories = models.FloatField(blank=True, null=True)
     proteins = models.FloatField(blank=True, null=True)
+    quantity_per_plate_primary = models.FloatField(_("Quantity to serve - Primary Students (in grams) "), blank=True, null=True)
+    quantity_per_plate_secondary = models.FloatField(_("Quantity to serve - Secondary Students (in grams)"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("meal")
@@ -201,5 +245,6 @@ class MealImage(models.Model):
 
     def get_absolute_url(self):
         return reverse("mealimage_detail", kwargs={"pk": self.pk})
+
 
 

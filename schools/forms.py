@@ -1,5 +1,5 @@
 from django import forms
-from .models import Class, Student, Meal, Attendence, School
+from .models import Class, Student, Meal, Attendence, School, HealthRecord
 
 class ClassForm(forms.ModelForm):
     
@@ -16,13 +16,20 @@ class StudentForm(forms.ModelForm):
         fields = ("__all__")
         # exclude = ('current_class')
 
+class HealthRecordForm(forms.ModelForm):
+    
+    class Meta:
+        model = HealthRecord
+        exclude = ('student','cognitive_score',)
+
+
 class MealForm(forms.ModelForm):
     date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 
-    quantity = forms.IntegerField(label='Quantity per plate (in grams)', required=True, initial=100)
+    # quantity = forms.IntegerField(label='Quantity per plate (in grams)', required=True, initial=100)
     
     class Meta:
         model = Meal
-        exclude = ('school','calories','proteins')
+        exclude = ('school','calories','proteins','quantity_per_plate_primary','quantity_per_plate_secondary')
         
 class MealForm2(forms.ModelForm):
     date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 

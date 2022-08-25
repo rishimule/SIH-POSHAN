@@ -17,6 +17,8 @@ urlpatterns = [
     path('create_students/',    views.StudentCreateView.as_view(),  name='create_students'),
     path('student_detail/<pk>/',views.StudentDetailView.as_view(),  name='student_detail'),
     path('update_student/<pk>/', views.StudentUpdateView.as_view(),  name='update_student'),
+    path('add_health_record/<studentpk>/', views.add_healthrecord,  name='add_health_record'),
+    path('healthrecord_detail/<pk>/',views.HealthRecordDetailView.as_view(),  name='healthrecord_detail'),
 
     
     # CLASS
@@ -27,8 +29,16 @@ urlpatterns = [
     path('delete_class/<pk>/',  views.ClassDeleteView,              name='delete_class'),
     
     # ATTENDENCE
-    path('attendence/',        views.AttendenceView.as_view(),     name='attendence'),
-    path('addAtt/<myclass>/<date>/',        views.addAtt,     name='addAtt'),
+    path(
+        'attendence/',        
+        views.AttendenceView.as_view(),     
+        name='attendence'
+        ),
+    path(
+        'addAtt/<myclass>/<date>/',        
+        views.addAtt,     
+        name='addAtt'
+        ),
     path(
         'redirect_to_add_attendence/',        
         views.redirect_to_add_attendenceView, 

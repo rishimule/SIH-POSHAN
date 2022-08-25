@@ -4,11 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .permissions import is_in_group_schools
-from .forms import ClassForm, MealForm, MealForm2, StudentForm, SchoolForm,AddAttendenceForm
+from .forms import ClassForm, MealForm, MealForm2, StudentForm, SchoolForm,AddAttendenceForm, HealthRecordForm
 from django.utils import timezone
 from django.contrib import messages
 from django.views.generic import TemplateView, CreateView, ListView, DeleteView, DetailView, UpdateView
-from .models import Student, Class, School, Meal, Attendence, MealImage
+from .models import Student, Class, School, Meal, Attendence, MealImage, HealthRecord
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from photocalpro.modelfile2 import return_calories_proteins
@@ -188,20 +188,6 @@ class MealDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return cond1 and cond2
 
 
-class MealCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = Meal
-    fields = '__all__'
-    template_name = "schools/todays-meal.html"
-    success_url: reverse_lazy('schools:dashboard')
-
-    def test_func(self):
-        cond1 = is_in_group_schools(self.request.user)
-        return cond1
-
-    def form_valid(self, form):
-        form.instance.school = self.request.user.schools
-        print('this validity')
-        return super().form_valid(form)
 
 def mealCreateView(request):
     if request.method == 'POST' and request.FILES:
@@ -221,15 +207,20 @@ def mealCreateView(request):
         meal_pic = temp_meal_pic.meal_pic
         calories = float(health_data['calories'])
         proteins = float(health_data['proteins']) 
-        quantity = int(request.POST['quantity'])
+        quantity_per_plate_primary   = round( 450 *100 / calories, 2)
+        quantity_per_plate_secondary = round( 750 *100 / calories, 2)
+        # quantity = int(request.POST['quantity'])
         
         mealinstance = Meal(
             school = school,
             name = name,
             date = date,
             meal_pic= meal_pic,
-            calories = calories * quantity / 100,
-            proteins = proteins * quantity / 100,
+            calories = calories,
+            proteins = proteins,
+            quantity_per_plate_primary = quantity_per_plate_primary,
+            quantity_per_plate_secondary = quantity_per_plate_secondary,
+        
         )
         print(mealinstance)
         
@@ -310,6 +301,37 @@ class StudentUpdateView(UpdateView):
         form = super().get_form(form_class)
         form.fields['current_class'].queryset = self.request.user.schools.classes.all()
         return form
+
+
+def add_healthrecord(request,studentpk):
+    student = get_object_or_404(Student, pk= studentpk)
+    form = HealthRecordForm()
+    if request.method == 'POST':
+        form = HealthRecordForm(request.POST)
+        if form.is_valid():
+            healthrecord = HealthRecord()
+            healthrecord.student = student
+            healthrecord.height = form.cleaned_data['height']
+            healthrecord.weight = form.cleaned_data['weight']
+            healthrecord.haemoglobin = form.cleaned_data['haemoglobin']
+            healthrecord.cognitive_score = 100
+            healthrecord.save()
+            return redirect(reverse('schools:class_detail', kwargs={'pk':student.current_class.pk}))
+    else:
+        context={
+            'form':form,
+            'student':student,
+        }
+        
+        return render(request,'schools/add_healthrecord.html', context=context)
+    
+
+class HealthRecordDetailView(DetailView):
+    model = HealthRecord
+    template_name = "schools/healthrecord_detail.html"
+    context_object_name = 'healthrecord'
+
+
 
 class AttendenceView(TemplateView):
     template_name = "schools/attendence.html"
