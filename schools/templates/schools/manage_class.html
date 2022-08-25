@@ -19,25 +19,27 @@
         <p>
         <div class="card shadow-lg">
             <div class="card-body">
-                <h2 class="card-title">{{class.class_name}}</h2>
+                <h3 class="card-title">Class : {{class.class_name}}</h3>
                 <p class="card-text">
-                    {{class.class_std}}
+                    
                     <h5>
-                        School Name
+                        School Name : {{class.school}}
+                        <br>
+                        Year : {{class.year}}
                     </h5>
-                    {{class.school}}
-                    {{class.year}}
-                <ul>
-                    <!-- {% for student in class.students.all %}
+                    
+                    
+                <!-- <ul>
+                    {% for student in class.students.all %}
                     <li>
                         {{student}}
                         <br>
                     </li>
-                    {% endfor %} -->
-                </ul>
+                    {% endfor %}
+                </ul> -->
                 </p>
                 <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
-                <a onclick="confirm_delete_class('{{class.id}}');" class="btn btn-danger" role="button">Delete</a>
+                <!-- <a onclick="confirm_delete_class('{{class.id}}');" class="btn btn-danger" role="button">Delete</a> -->
 
             </div>
 
