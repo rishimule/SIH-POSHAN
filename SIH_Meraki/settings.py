@@ -206,6 +206,12 @@ if DEBUG and not USE_REAL_EMAIL_GMAIL:
     EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
     
-    
+TWILIO_SID = 'AC69137c219abbfb6823cc1b686435e0cc'
+TWILIO_TOKEN = 'd04502fefedb484977b27fa756649781'
+TWILIO_PHONE = '+18144262081'
+
+
+
+
     
     

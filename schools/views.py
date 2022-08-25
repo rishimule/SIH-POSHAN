@@ -1,5 +1,6 @@
 from urllib import request
 from pprint import pprint as pp
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -14,6 +15,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from photocalpro.modelfile2 import return_calories_proteins
 import datetime
 from django.db.models import Count, Avg
+from twilio.rest import Client as TwilioClient
+
 
 # Create your views here.
 @user_passes_test(is_in_group_schools, login_url='/')
@@ -308,6 +311,16 @@ class StudentUpdateView(UpdateView):
         form.fields['current_class'].queryset = self.request.user.schools.classes.all()
         return form
 
+def send_sms(body,to):
+    client = TwilioClient(settings.TWILIO_SID, settings.TWILIO_TOKEN)
+    message = client.messages.create(
+                     body=body,
+                     from_=settings.TWILIO_PHONE,
+                     to=to
+                 )
+    print(message.sid)
+    
+    
 
 def add_healthrecord(request,studentpk):
     student = get_object_or_404(Student, pk= studentpk)
@@ -322,6 +335,11 @@ def add_healthrecord(request,studentpk):
             healthrecord.haemoglobin = form.cleaned_data['haemoglobin']
             healthrecord.cognitive_score = 100
             healthrecord.save()
+            send_sms(
+                body=f".\n\nThe health details of {student.first_name} {student.last_name} was updated on {healthrecord.datetime.date()}.\n Height = {healthrecord.height}, \n Weight = {healthrecord.weight}, \n Bmi = {round(healthrecord.bmi,2)}",
+                to=healthrecord.student.contact_number
+            )
+            
             return redirect(reverse('schools:class_detail', kwargs={'pk':student.current_class.pk}))
     else:
         context={
