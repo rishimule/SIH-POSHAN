@@ -19,22 +19,20 @@
                                     <hr />
                                 </div>
                                 <form method="POST" enctype="multipart/form-data">
-<<<<<<< HEAD
+
                                     <script type='text/javascript'>
-                                        $(document).ready(function(){
-                                        
-                                         $('#id_date').datepicker({
-                                          dateFormat: "yy-mm-dd",
-                                          maxDate:'+1m +10d',
-                                          minDate: -10
-                                                           
-                                         });
-                                        
+                                        $(document).ready(function () {
+
+                                            $('#id_date').datepicker({
+                                                dateFormat: "yy-mm-dd",
+                                                maxDate: '+1m +10d',
+                                                minDate: -10
+
+                                            });
+
                                         });
                                     </script>
-=======
 
->>>>>>> c993ea07a5614acadc05221163f0bbb2d5e4851c
                                     {% load formcss %}
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
@@ -121,9 +119,9 @@
     var lon = document.getElementById("longitude");
 
     console.log(navigator.geolocation.getCurrentPosition(showPosition));
-    
-    
-    
+
+
+
 
 
 </script>
