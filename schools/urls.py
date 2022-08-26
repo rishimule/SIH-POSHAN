@@ -22,6 +22,7 @@ urlpatterns = [
     path('update_student/<pk>/', views.StudentUpdateView.as_view(),  name='update_student'),
     path('add_health_record/<studentpk>/', views.add_healthrecord,  name='add_health_record'),
     path('healthrecord_detail/<pk>/',views.HealthRecordDetailView.as_view(),  name='healthrecord_detail'),
+    path('cognitive/',views.HealthRecordDetailView.as_view(),  name='healthrecord_detail'),
 
     
     # CLASS
