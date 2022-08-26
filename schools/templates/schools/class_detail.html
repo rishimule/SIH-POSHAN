@@ -47,13 +47,13 @@
               <td>{{student.gender}}</td>
               <td>{{student.current_height}}</td>
               <td>{{student.current_weight}}</td>
-              {% if student.getbmi > 0 and student.getbmi < 18.5 %} <td style="color: red;">
+              {% if student.bmi > 0 and student.bmi < 18.5 %} <td style="color: red;">
 
-                {% elif student.getbmi >= 18.5 and student.getbmi < 24.9 %} <td style="color: green;">
+                {% elif student.bmi >= 18.5 and student.bmi < 24.9 %} <td style="color: green;">
                   {% else %}
                   <td style="color: orange;">
                     {% endif %}
-                    {{student.getbmi|floatformat:2}}
+                    {{student.bmi|floatformat:2}}
                   </td>
 
                   <td style="text-align: center;">

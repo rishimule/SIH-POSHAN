@@ -157,7 +157,7 @@ class Student(models.Model):
         return super(Student, self).save(*args, **kwargs)
     
     @property
-    def getbmi(self):
+    def bmi(self):
         return (self.current_weight / ((self.current_height/100)**2))
     
     @property    

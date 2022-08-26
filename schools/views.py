@@ -43,13 +43,37 @@ def dashboardView(request):
     # print(distinct_users_count) 
     average_daily_meals_served = int(distinct_pairs_count / distinct_users_count)
     
+    # BMI DONUT
+    meal_list = request.user.schools.meals.order_by('-date').all()[:5]
+    student_list = Student.objects.filter(current_class__school = school)
+    UW, H, OW = 0,0,0
+    for student in student_list:
+        if student.bmi  < 18.5:
+            UW += 1
+        elif student.bmi < 24.9:
+            H += 1
+        else:
+            OW +=1           
+    chart_donut_data = [UW, H, OW ]
     
+    # BAR GRAPH
+    total_no_of_students = Student.objects.filter(current_class__school = school).count()
+    attendence_for_week= Attendence.objects.filter(student__current_class__school = school , date__in=Meal.objects.filter(date__lte = todays_date , date__gte = todays_date - datetime.timedelta(days = 7),  school = school).values('date')).values('date')
+    for aatt in attendence_for_week[:20]:
+        pp(aatt)
+        # pp(aatt.date)
+        # pp(aatt.total)
+    print(attendence_for_week)
+     
     # CONTEXT
     context = {
         'meals_served_monthly': meals_served_monthly,
         'meals_served_weekly': meals_served_weekly,
         'todays_attendence_percentage' : todays_attendence_percentage,
         'average_daily_meals_served' : average_daily_meals_served,
+        'meal_list' : meal_list,
+        'chart_donut_data' :chart_donut_data,
+        'total_no_of_students' :total_no_of_students,
         
     }
     
