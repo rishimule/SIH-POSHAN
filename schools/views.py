@@ -33,7 +33,10 @@ def dashboardView(request):
     meals_served_weekly = Attendence.objects.filter(student__current_class__school = school , date__in=Meal.objects.filter(date__lte = todays_date , date__gte = todays_date - datetime.timedelta(days = 7),  school = school).values('date')).count()
      
     # TODAYS ATTENDENCE
-    todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date, student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
+    try:
+    	todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date, student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
+    except:
+        todays_attendence_percentage = 0
     
     # AVERAGE DAILY MEAL SERVED
     distinct_pairs_count = Attendence.objects.values('date','student').distinct().count()
@@ -49,6 +52,7 @@ def dashboardView(request):
     student_list = Student.objects.filter(current_class__school = school)
     UW, H, OW = 0,0,0
     for student in student_list:
+        print(stude)
         if student.bmi  < 18.5:
             UW += 1
         elif student.bmi < 24.9:

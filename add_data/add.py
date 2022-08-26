@@ -60,15 +60,8 @@ def add_class(num=1):
     fake = Faker('en_IN')
     for _ in range(num):
         print(f'Now Adding -------> {_}')
-        class_std = random.randint(-2, 10)
-        while class_std==0:
-            class_std = random.randint(-2, 10)
-        if class_std == -1:
-            class_name = fake.bothify(text=f"Sr. KG?", letters='ABCDE')
-        elif class_std == -2:
-            class_name = fake.bothify(text=f"Jr. KG?", letters='ABCDE')
-        else:
-            class_name = fake.bothify(text=f"{class_std}?", letters='ABCDE')
+        class_std = random.randint(1, 8)
+        class_name = fake.bothify(text=f"{class_std}?", letters='ABC')
         year = random.randint(2022, 2023)
         # school = School.objects.order_by('?').first()
         school = School.objects.filter(name__icontains = 'adarsh').first()
