@@ -182,7 +182,7 @@ class HealthRecord(models.Model):
     height = models.IntegerField(_("Height (in cm)"), blank=False, null=False)
     weight = models.IntegerField(_("Weight (in Kg)"), blank=False, null=False)
     haemoglobin = models.FloatField(_("Haemoglobin count"), blank=True, null=False, default=0)
-    cognitive_score = models.IntegerField(_("Cognitive Test Score"), blank=False, null=False, default=0 ,validators=[
+    cognitive_score = models.IntegerField(_("Cognitive Test Score"), blank=True, null=False, default=0 ,validators=[
             MaxValueValidator(100),
             MinValueValidator(0)
         ])
