@@ -159,7 +159,7 @@ class Student(models.Model):
     @property
     def bmi(self):
         try:
-        	return (self.current_weight / ((self.current_height/100)**2))
+            return (self.current_weight / ((self.current_height/100)**2))
         except:
             return 0
     

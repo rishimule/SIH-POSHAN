@@ -45,7 +45,10 @@ def dashboardView(request):
     distinct_users_count = Attendence.objects.values('date').distinct().count()  
     # print(Attendence.objects.values('date').distinct()) 
     # print(distinct_users_count) 
-    average_daily_meals_served = int(distinct_pairs_count / distinct_users_count)
+    try:
+        average_daily_meals_served = int(distinct_pairs_count / distinct_users_count)
+    except:
+        average_daily_meals_served = 0
     
     # BMI DONUT
     meal_list = request.user.schools.meals.order_by('-date').all()[:5]
