@@ -224,9 +224,90 @@
             </div>
         </div>
 
+<!-- HASHIR ATTENDANCE LINE -->
+<div class="col-lg-5 col-xl-4">
+    <div class="card shadow mb-4" id="lineChart2">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="text-primary fw-bold m-0">Classwise Attendance</h6>
+            <div class="dropdown no-arrow">
+                <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
+                    data-bs-toggle="dropdown" type="button">
+                    <i class="fas fa-ellipsis-v text-gray-400"></i>
+                </button>
+                <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                    <p class="text-center dropdown-header">Graph</p>
+                    <a class="dropdown-item" href="#">&nbsp;Details</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Classwise Attendance</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div>
+                <div sty>
+                    <canvas id="standard-attendance" width="150px" height="135px"></canvas>
+                </div>
+
+                <script>
+                    const mdctx1 = document.getElementById('standard-attendance');
+                    let percentage = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+                    const mdChart1 = new Chart(mdctx1, {
+                        type: 'line',
+                        data: {
+                            labels: ['1', '2', '3', '4', '5', '6', '7', '8' ],
+                            datasets: [{
+                                label: 'Percentage',
+                                data: percentage,
+                                backgroundColor: [
+                                    'rgba(255, 99, 139, 1)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(86, 206, 255, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(132, 99, 255, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                            },
+                            
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+                <!-- <style>
+                    #lineChart2 {
+                        box-sizing: border-box;
+                        width: 25vw;
+                        
+                    }
+                </style> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+<!-- End: Chart -->
+
         <!-- Hashir Bar Graph -->
         <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4" id="bar-chart2">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="text-primary fw-bold m-0">Bar Graph</h6>
                     <div class="dropdown no-arrow">
@@ -311,102 +392,10 @@
                             });
 
                         </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- HASHIR PRE PRIMARY LINE -->
-        <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4" id="lineChart1">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">PRE PRIMARY LINE GRAPH</h6>
-                    <div class="dropdown no-arrow">
-                        <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
-                            data-bs-toggle="dropdown" type="button">
-                            <i class="fas fa-ellipsis-v text-gray-400"></i>
-                        </button>
-                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                            <p class="text-center dropdown-header">Graph</p>
-                            <a class="dropdown-item" href="#">&nbsp;Details</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Mean Calories</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="line-Chart" sty>
-                            <canvas id="midday-chart"></canvas>
-                        </div>
-
-                        <script>
-                            const mdctx = document.getElementById('midday-chart');
-                            let calorieCount = [425, 450, 455, 461, 420, 475, 453];
-                            let proteinContent = [12, 14, 9, 13, 12, 8, 10];
-
-                            const mdChart = new Chart(mdctx, {
-                                type: 'line',
-                                data: {
-                                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                                    datasets: [{
-                                        label: 'Caolries',
-                                        data: calorieCount,
-                                        backgroundColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 2
-                                    },
-                                    {
-                                        label: 'Protein Content',
-                                        data: proteinContent,
-                                        backgroundColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 2
-                                    }]
-
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                        </script>
-
                         <style>
-                            #lineChart1 {
+                            #bar-chart2 {
                                 box-sizing: border-box;
-                                width: 40vw;
+                                width: 89vw;
                                 
                             }
                         </style>
@@ -415,108 +404,5 @@
             </div>
         </div>
 
-        <!-- HASHIR PRE PRIMARY LINE -->
-        <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4" id="lineChart2">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">Classwise Attendance</h6>
-                    <div class="dropdown no-arrow">
-                        <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
-                            data-bs-toggle="dropdown" type="button">
-                            <i class="fas fa-ellipsis-v text-gray-400"></i>
-                        </button>
-                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                            <p class="text-center dropdown-header">Graph</p>
-                            <a class="dropdown-item" href="#">&nbsp;Details</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Classwise Attendance</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div sty>
-                            <canvas id="midday-chart-secondary" width="100" height="50"></canvas>
-                        </div>
-
-                        <script>
-                            const mdctx1 = document.getElementById('midday-chart-secondary');
-                            let calorieCount1 = [725, 750, 655, 761, 720, 675, 653];
-                            let proteinContent1 = [12, 14, 19, 13, 22, 18, 20];
-
-                            const mdChart1 = new Chart(mdctx1, {
-                                type: 'line',
-                                data: {
-                                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                                    datasets: [{
-                                        label: 'Calories',
-                                        data: calorieCount1,
-                                        backgroundColor: [
-                                            'rgba(255, 99, 139, 1)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(86, 206, 255, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 2
-                                    },
-                                    {
-                                        label: 'Protein Content',
-                                        data: proteinContent1,
-                                        backgroundColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(132, 99, 255, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 2
-                                    }]
-
-                                },
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                        </script>
-                        <style>
-                            #lineChart2 {
-                                box-sizing: border-box;
-                                width: 40vw;
-                                
-                            }
-                        </style>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-    </div>
-    <!-- End: Chart -->
-</div>
-
+                
 {% endblock content %}
