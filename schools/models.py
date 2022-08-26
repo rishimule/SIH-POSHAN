@@ -121,8 +121,8 @@ class Student(models.Model):
     current_class = models.ForeignKey(Class, on_delete=models.CASCADE, related_name='students')
     gr_no = models.CharField(max_length=50)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES, blank=False, default=0)
-    # current_height = models.FloatField(blank=False, null=False, default=1),
-    # current_weight = models.FloatField(blank=False, null=False, default=1),
+    current_height = models.FloatField(blank=False, null=False, default=1),
+    current_weight = models.FloatField(blank=False, null=False, default=1),
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,13}$', 
                                  message="Phone number must be entered in the format: '+999999999'. Up to 13 digits allowed."
                                 )
