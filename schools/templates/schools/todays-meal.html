@@ -65,9 +65,24 @@
                                     <input type="hidden" id="longitude" name="longitude" value="0">
 
                                     {% endif %}
+                                    
+                                    {% if  temp_meal_pic %}
 
+                                    <div class="card">
+                                        <div class="card-body">
+                                            {{primary_data|pprint }}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="card">
+                                        
+                                        <div class="card-body">
+                                            {{upper_primary_data}}
+                                        </div>
+                                    </div>
+                                    <br>
 
-
+                                    {% endif %}
 
                                     {% if temp_meal_pic %}
 

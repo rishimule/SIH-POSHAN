@@ -1,3 +1,12 @@
+from PIL import Image
+import requests
+from bs4 import BeautifulSoup
+import tensorflow as tf
+import os
+import csv
+import pandas as pd
+import itertools as IT
+
 import streamlit as st
 from PIL import Image
 from keras.preprocessing.image import load_img,img_to_array
@@ -40,7 +49,7 @@ def fetch_calories(prediction):
         return theRate
 
     except Exception as e:
-        st.error("Can't able to fetch the Calories")
+        print("Can't able to fetch the Calories")
         print(e)
 
 
@@ -59,7 +68,7 @@ def fetch_proteins(prediction):
         return theRate
     
     except Exception as e:
-        st.error("Can't able to fetch the proteins")
+        print("Can't able to fetch the proteins")
         print(e)
 
 # elif name == "Upper Primary":
@@ -78,7 +87,7 @@ def fetch_calories1(prediction):
         return theRate
         
     except Exception as e:
-        st.error("Can't able to fetch the Calories")
+        print("Can't able to fetch the Calories")
         print(e)
 
 def fetch_proteins1(prediction):
@@ -96,10 +105,10 @@ def fetch_proteins1(prediction):
         return theRate
 
     except Exception as e:
-        st.error("Can't able to fetch the proteins")
+        print("Can't able to fetch the proteins")
         print(e)
 # else:
-#     st.error("Invalid Input")
+#     print("Invalid Input")
 
 def processed_img(img_path):
     img=load_img(img_path,target_size=(224,224,3)) 
@@ -116,28 +125,28 @@ def processed_img(img_path):
     return res.capitalize()
 
 
-def run1():
-    st.title("* Meal Calorie & Protein Predictor *")
+def run1(img_file):
+    # st.title("* Meal Calorie & Protein Predictor *")
     
-    # st.markdown(unsafe_allow_html=True)
-    img_file = st.file_uploader("Choose an Image", type=["jpg", "png"])
-    # img_file = 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/02/khichdi-recipe-1.jpg'
-    if img_file is not None:
-        img = Image.open(img_file).resize((250,250))
-        st.image(img,use_column_width=False)
-        save_image_path = 'C:/my folder/dataset_pics'+img_file.name
-        with open(save_image_path, "wb") as f:
-            f.write(img_file.getbuffer())
+    # # st.markdown(unsafe_allow_html=True)
+    # img_file = st.file_uploader("Choose an Image", type=["jpg", "png"])
+    # # img_file = 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/02/khichdi-recipe-1.jpg'
+    # if img_file is not None:
+    #     img = Image.open(img_file).resize((250,250))
+    #     st.image(img,use_column_width=False)
+    #     save_image_path = 'C:/my folder/dataset_pics'+img_file.name
+    #     with open(save_image_path, "wb") as f:
+    #         f.write(img_file.getbuffer())
 
-        # if st.button("Predict"):
+        save_image_path = img_file
         if img_file is not None:
             result= processed_img(save_image_path)
             print(result)
             if result in meal:
-                st.info('**Category : meal**')
+                print('**Category : meal**')
             # else:
-            #     st.info('**Category : Fruit**')
-            st.success("**Predicted : "+result+'**')
+            #     print('**Category : Fruit**')
+            print("**Predicted : "+result+'**')
             cal = fetch_calories(result)#imp
             print(cal)#imp
             
@@ -165,35 +174,46 @@ def run1():
             else:
                 lol1 = "Condition satisfied"
 
-            if cal:#imp
-                st.warning("calories: "+str(cal))#imp
-                st.warning("proteins: "+str(pro))#imp
-                st.warning("suggestions to satisfy calories: "+str(lol))
-                st.warning("suggestions to satisfy proteins: "+str(lol1))
+            return {
+                'calories':str(cal),
+                'proteins':str(pro),
+                "suggestions to satisfy calories": str(lol),
+                'suggestions to satisfy proteins':str(lol1)
+            }
+            
+            # if cal:#imp
+            #     st.warning("calories: "+str(cal))#imp
+            #     st.warning("proteins: "+str(pro))#imp
+            #     st.warning("suggestions to satisfy calories: "+str(lol))
+            #     st.warning("suggestions to satisfy proteins: "+str(lol1))
 
 
-def run2():
-    st.title("* Meal Calorie & Protein Predictor *")
+def run2(img_file):
+    # st.title("* Meal Calorie & Protein Predictor *")
     
-    # st.markdown(unsafe_allow_html=True)
-    img_file = st.file_uploader("Choose an Image", type=["jpg", "png"])
-    # img_file = 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/02/khichdi-recipe-1.jpg'
-    if img_file is not None:
-        img = Image.open(img_file).resize((250,250))
-        st.image(img,use_column_width=False)
-        save_image_path = 'C:/my folder/dataset_pics'+img_file.name
-        with open(save_image_path, "wb") as f:
-            f.write(img_file.getbuffer())
+    # # st.markdown(unsafe_allow_html=True)
+    # img_file = st.file_uploader("Choose an Image", type=["jpg", "png"])
+    # # img_file = 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/02/khichdi-recipe-1.jpg'
+    
+    
+    # if img_file is not None:
+    #     img = Image.open(img_file).resize((250,250))
+    #     st.image(img,use_column_width=False)
+    #     save_image_path = 'C:/my folder/dataset_pics'+img_file.name
+    #     with open(save_image_path, "wb") as f:
+    #         f.write(img_file.getbuffer())
 
         # if st.button("Predict"):
+        
+        save_image_path = img_file
         if img_file is not None:
             result1= processed_img(save_image_path)
             print(result1)
             if result1 in meal:
-                st.info('**Category : meal**')
+                print('**Category : meal**')
             # else:
-            #     st.info('**Category : Fruit**')
-            st.success("**Predicted : "+result1+'**')
+            #     print('**Category : Fruit**')
+            print("**Predicted : "+result1+'**')
             cal1 = fetch_calories1(result1)#imp
             # print(cal)#imp
             
@@ -221,23 +241,50 @@ def run2():
             else:
                 lol4 = "Condition satisfied"
 
-            if cal1:#imp
-                st.warning("calories: "+str(cal1))#imp
-                st.warning("proteins: "+str(pro1))#imp
-                st.warning("suggestions to satisfy calories: "+str(lol3))
-                st.warning("suggestions to satisfy proteins: "+str(lol4))
+            return {
+                'calories':str(cal1),
+                'proteins':str(pro1),
+                "suggestions to satisfy calories": str(lol3),
+                'suggestions to satisfy proteins':str(lol4)
+            }
+            
+            # if cal1:#imp
+            #     st.warning("calories: "+str(cal1))#imp
+            #     st.warning("proteins: "+str(pro1))#imp
+            #     st.warning("suggestions to satisfy calories: "+str(lol3))
+            #     st.warning("suggestions to satisfy proteins: "+str(lol4))
 
-name = st.text_input("Enter level")
+# name = st.text_input("Enter level")
 
 
-if name == "Primary":
-    run1()
 
-elif name == "Upper Primary":
-    run2()
+def final_run(img):
+    primary = run1(img)
+    print('+'*300)
+    print(primary)
+    upper_primary = run2(img)
+    print('+'*300)
+    print(upper_primary)
+    
+    return {
+        'primary':primary,
+        'upper_primary':upper_primary
+    }
+
+
+
+
+
+
+
+# if name == "Primary":
+#     run1()
+
+# elif name == "Upper Primary":
+#     run2()
 
 # else:
-#     st.info("Invalid Input")
+#     print("Invalid Input")
 
 
 

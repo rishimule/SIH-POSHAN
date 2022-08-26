@@ -28,7 +28,7 @@ class MealForm(forms.ModelForm):
 
     class Meta:
         model = Meal
-        exclude = ('school','calories','proteins', 'latitude', 'longitude')
+        exclude = ('school','caloriesp','proteinsp','caloriesu','proteinsu',  'latitude', 'longitude')
         
 class MealForm2(forms.ModelForm):
     date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}), required=True) 

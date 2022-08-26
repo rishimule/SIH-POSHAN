@@ -14,6 +14,7 @@ from .models import Student, Class, School, Meal, Attendence, MealImage, HealthR
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from photocalpro.modelfile2 import return_calories_proteins
+from photocalpro.meal1 import final_run
 # from photocalpro.sample import run as return_calories_proteins_and_stuff
 import datetime
 from django.db.models import Count, Avg
@@ -252,13 +253,17 @@ def mealCreateView(request):
         
         health_data = return_calories_proteins(temp_meal_pic.meal_pic.url[1:])
         print(health_data)
+        all_the_data = final_run(temp_meal_pic.meal_pic.url[1:])
+        pp(all_the_data)
         
         school = request.user.schools
         name = request.POST['name']
         date = request.POST['date']
         meal_pic = temp_meal_pic.meal_pic
-        calories = float(health_data['calories'])
-        proteins = float(health_data['proteins']) 
+        caloriesp = all_the_data['primary']['calories']
+        proteinsp = all_the_data['primary']['proteins']
+        caloriesu = all_the_data['upper_primary']['calories']
+        proteinsu = all_the_data['upper_primary']['proteins']
         # quantity_per_plate_primary   = round( 450 *100 / calories, 2)
         # quantity_per_plate_secondary = round( 750 *100 / calories, 2)
         # quantity = int(request.POST['quantity'])
@@ -275,8 +280,10 @@ def mealCreateView(request):
             date = date,
             # quantity = quantity,
             meal_pic= meal_pic,
-            calories = calories, 
-            proteins = proteins,
+            caloriesu = caloriesu, 
+            proteinsu = proteinsu,
+            caloriesp = caloriesp, 
+            proteinsp = proteinsp,
             latitude = latitude,
             longitude = longitude,
             # calories = calories,
@@ -291,7 +298,9 @@ def mealCreateView(request):
         context = {
             'form': form,
             'temp_meal_pic' : temp_meal_pic,
-            'next_action_url' : reverse('schools:todays_meal')
+            'next_action_url' : reverse('schools:todays_meal'),
+            'primary_data' : all_the_data['primary'],
+            'upper_primary_data' : all_the_data['upper_primary'],
         }
         return render(request, "schools/todays-meal.html", context)
         
@@ -303,9 +312,11 @@ def mealCreateView(request):
             name = request.POST['name']
             date = request.POST['date']
             meal_pic = MealImage.objects.get(pk=request.POST['mealimage_id']).meal_pic
-            calories = request.POST['calories']
-            # quantity = request.POST['quantity']
-            proteins = request.POST['proteins']
+            
+            caloriesu = request.POST['caloriesu']
+            proteinsu = request.POST['proteinsu']
+            caloriesp = request.POST['caloriesp']
+            proteinsp = request.POST['proteinsp']
             latitude = request.POST['latitude']
             longitude = request.POST['longitude']
                       
@@ -315,8 +326,10 @@ def mealCreateView(request):
                 date = date,
                 meal_pic= meal_pic,
                 # quantity = quantity,
-                calories = calories,
-                proteins = proteins,
+                caloriesu = caloriesu, 
+                proteinsu = proteinsu,
+                caloriesp = caloriesp, 
+                proteinsp = proteinsp,
                 latitude = latitude,
                 longitude = longitude,
             )
