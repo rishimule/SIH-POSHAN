@@ -1,5 +1,6 @@
 from urllib import request
 from pprint import pprint as pp
+from PIL import Image
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -17,6 +18,9 @@ from photocalpro.modelfile2 import return_calories_proteins
 import datetime
 from django.db.models import Count, Avg
 from twilio.rest import Client as TwilioClient
+
+def get_date_taken(path):
+    return Image.open(path)._getexif()[36867]
 
 
 # Create your views here.
@@ -203,7 +207,7 @@ class ClassListView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['class_list'] = self.request.user.schools.classes.all()
+        context['class_list'] = self.request.user.schools.classes.order_by('class_name').all()
         return context
 
     def test_func(self):
@@ -244,6 +248,7 @@ def mealCreateView(request):
         temp_meal_pic = MealImage(meal_pic = request.FILES['meal_pic'])
         temp_meal_pic.save()
         print(temp_meal_pic.meal_pic.url)
+        print(temp_meal_pic.meal_pic.url[1:])
         
         health_data = return_calories_proteins(temp_meal_pic.meal_pic.url[1:])
         print(health_data)
@@ -261,7 +266,7 @@ def mealCreateView(request):
         longitude = request.POST['longitude']
         
         if latitude=="0":
-            return redirect('schools/location_not_found.html')
+            return redirect(reverse('schools:location_not_found'))
             
         
         mealinstance = Meal(
@@ -393,8 +398,16 @@ def add_healthrecord(request,studentpk):
             healthrecord.haemoglobin = form.cleaned_data['haemoglobin']
             healthrecord.cognitive_score = 100
             healthrecord.save()
+            stbmi = round(healthrecord.bmi,2)
+            if stbmi < 18.5:
+                stlev = 'Underweight'
+            elif stbmi <24.9:
+                stlev = 'Normal Weight'
+            else:
+                stlev = 'Overweight'
+                
             send_sms(
-                body=f".\n\nThe health details of {student.first_name} {student.last_name} was updated on {healthrecord.datetime.date()}.\n Height = {healthrecord.height}, \n Weight = {healthrecord.weight}, \n Bmi = {round(healthrecord.bmi,2)}",
+                body=f".\n\nThe health details of {student.first_name} {student.last_name} was updated on {healthrecord.datetime.date()}.\n Height = {healthrecord.height}, \n Weight = {healthrecord.weight}, \n Bmi = {stbmi} ({stlev})",
                 to=healthrecord.student.contact_number
             )
             

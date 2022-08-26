@@ -127,12 +127,12 @@ def add_attendence(num=1):
         date = date - timedelta(days = 1)
         print(date)
         if date.weekday() < 5:
-            school = School.objects.filter(name__icontains = 'adarsh').first()
+            school = School.objects.filter(name__icontains = 'south').first()
             class_list = school.classes.order_by('class_std')
             print(class_list)
             for myclass in class_list:
                 Attendence.objects.filter(date=date).filter(student__in = myclass.students.all()).delete()
-                presentpercent = random.randint(40,80)
+                presentpercent = random.randint(50,85)
                 student_count = myclass.students.count()
                 # print(student_count)
                 present_count = int(presentpercent * student_count / 100)
