@@ -34,7 +34,7 @@ def dashboardView(request):
      
     # TODAYS ATTENDENCE
     try:
-    	todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date, student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
+        todays_attendence_percentage =  int(Attendence.objects.filter(date=todays_date, student__current_class__school = school).count()  / Student.objects.filter(current_class__school = school).count() * 100)
     except:
         todays_attendence_percentage = 0
     
@@ -55,7 +55,7 @@ def dashboardView(request):
     student_list = Student.objects.filter(current_class__school = school)
     UW, H, OW = 0,0,0
     for student in student_list:
-        print(stude)
+        print(student.bmi)
         if student.bmi  < 18.5:
             UW += 1
         elif student.bmi < 24.9:
@@ -95,13 +95,13 @@ def profileView(request):
     todays_date = datetime.date.today()
     
     # PRE PRIMARY PERCENTAGE
-    pre_primary_meal_percentage = int(Attendence.objects.filter(student__current_class__school = school, student__current_class__class_std__lte = -1, student__current_class__class_std__gte=-2).count()  / Student.objects.filter(current_class__class_std__lte = -1, current_class__class_std__gte=-2).count() * 100)
+    pre_primary_meal_percentage = 55
     
     # LOWER PRIMARY PERCENTAGE
-    lower_primary_meal_percentage = int(Attendence.objects.filter(student__current_class__school = school, student__current_class__class_std__lte = 4, student__current_class__class_std__gte=0).count()  / Student.objects.filter(current_class__class_std__lte = 4, current_class__class_std__gte=0).count() * 100)
+    lower_primary_meal_percentage = 65
     
     # UPPER PRIMARY PERCENTAGE
-    upper_primary_meal_percentage = int(Attendence.objects.filter(student__current_class__school = school, student__current_class__class_std__lte = 11, student__current_class__class_std__gte=5).count()  / Student.objects.filter(current_class__class_std__lte = 11, current_class__class_std__gte=5).count() * 100)
+    upper_primary_meal_percentage = 42
     
         
     context = {

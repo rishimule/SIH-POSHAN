@@ -20,7 +20,7 @@ class HealthRecordForm(forms.ModelForm):
     
     class Meta:
         model = HealthRecord
-        exclude = ('student','cognitive_score',)
+        exclude = ('student',)
 
 
 class MealForm(forms.ModelForm):
