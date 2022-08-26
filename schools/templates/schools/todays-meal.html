@@ -18,7 +18,18 @@
                                     <hr />
                                 </div>
                                 <form method="POST" enctype="multipart/form-data">
-
+                                    <script type='text/javascript'>
+                                        $(document).ready(function(){
+                                        
+                                         $('#id_date').datepicker({
+                                          dateFormat: "yy-mm-dd",
+                                          maxDate:'+1m +10d',
+                                          minDate: -10
+                                        
+                                         });
+                                        
+                                        });
+                                    </script>
                                     {% load formcss %}
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
@@ -74,6 +85,8 @@
                                         Upload Photo
                                     </button>
                                     {% endif %}
+                                    <!-- Datepicker Script -->
+                                    
                                 </form>
                             </div>
                         </div>
