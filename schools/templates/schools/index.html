@@ -97,10 +97,13 @@
             </div>
         </div>
     </div>
+
+
     <!-- Start: Chart -->
     <div class="row">
+
         <!-- Line Graph -->
-        <div class="col-lg-7 col-xl-8">
+        <!-- <div class="col-lg-7 col-xl-8">
             <div class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
@@ -124,7 +127,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Donut Graph -->
         <div class="col-lg-5 col-xl-4">
@@ -147,7 +150,7 @@
                 <div class="card-body">
                     <div class="chart-area">
                         <canvas
-                            data-bss-chart='{"type":"doughnut","data":{"labels":["Underweight","Healthy","Overweight"],"datasets":[{"label":"","backgroundColor":["#4e73df","#1cc88a","#36b9cc"],"borderColor":["#ffffff","#ffffff","#ffffff"],"data":["50","44","15"]}]},"options":{"maintainAspectRatio":false,"legend":{"display":false,"labels":{"fontStyle":"normal"}},"title":{"fontStyle":"normal"}}}'></canvas>
+                            data-bss-chart='{"type":"doughnut","data":{"labels":["Underweight","Healthy","Overweight"],"datasets":[{"label":"","backgroundColor":["#4e73df","#1cc88a","#36b9cc"],"borderColor":["#ffffff","#ffffff","#ffffff"],"data":{{chart_donut_data}}}]},"options":{"maintainAspectRatio":false,"legend":{"display":false,"labels":{"fontStyle":"normal"}},"title":{"fontStyle":"normal"}}}'></canvas>
                     </div>
                     <div class="text-center small mt-4">
                         <span class="me-2"><i class="fas fa-circle text-primary"></i>Underweight</span><span
@@ -158,11 +161,11 @@
             </div>
         </div>
 
-        <!-- HASHIR code Pie-->
+        <!-- HASHIR LAST 5 MEALS-->
         <div class="col-lg-5 col-xl-4">
             <div class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">BMI2</h6>
+                    <h6 class="text-primary fw-bold m-0">Last 5 Meals</h6>
                     <div class="dropdown show no-arrow">
                         <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                             data-bs-toggle="dropdown" type="button">
@@ -177,44 +180,46 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="container">
+                    <!-- <div class="container"> -->
                         <div>
-                            <canvas id="bmi-pie-chart" style="padding: auto;"></canvas>
-                            <script>
-                                const bmictx = document.getElementById('bmi-pie-chart');
-                                let bmiOfWeek = [17, 38, 45];
-
-                                const bmiChart = new Chart(bmictx, {
-                                    type: 'pie',
-                                    data: {
-                                        labels: ['unfit', 'healthy', 'fit'],
-                                        datasets: [{
-                                            label: 'BMI  ',
-                                            data: bmiOfWeek,
-                                            backgroundColor: [
-                                                'rgba(132, 99, 255, 0.8)',
-                                                'rgba(54, 162, 235, 0.8)',
-                                                'rgba(255, 206, 86, 0.8)',
-                                                'rgba(75, 192, 192, 0.8)',
-                                                'rgba(153, 102, 255, 0.8)',
-                                                'rgba(255, 159, 64, 0.8)'
-                                            ],
-                                            borderColor: [
-                                                'rgba(132, 99, 255, 1)',
-                                                'rgba(54, 162, 235, 1)',
-                                                'rgba(255, 206, 86, 1)',
-                                                'rgba(75, 192, 192, 1)',
-                                                'rgba(153, 102, 255, 1)',
-                                                'rgba(255, 159, 64, 1)'
-                                            ],
-                                            borderWidth: 1
-                                        }]
-                                    }
-                                });
-
-                            </script>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm table-striped" width="100%" height="350px" id="student-table">
+                                    <thead>
+                                        <tr style="text-align: center;">
+                                            <th>Meal</th>
+                                            <th>Date</th>
+                                            <th>Calories</th>
+                                            <th>Proteins</th>
+                                            <th>Quantity</th>
+                                            <!-- <th>Details</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Start: Duplicate Table Row -->
+                                        {% for meal in meal_list %}
+                                        <tr>
+                                            <td>{{meal.name}}</td>
+                                            <td>{{meal.date}}</td>
+                                            <td>{{meal.calories}}</td>
+                                            <td>{{meal.proteins}}</td>
+                                            <td>{{meal.quantity}}g</td>
+                                            <!-- <td style="text-align: center;">
+                                                <a class="btn btn-success" role="button"
+                                                    href="{% url 'schools:meal_detail' pk=meal.pk %}">
+                                                    <span class="text-white-50 icon">
+                                                        <i class="far fa-edit"></i>
+                                                    </span>
+                                                    <span class="text-white text">Detail</span>
+                                                </a>
+                                            </td> -->
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- End: Duplicate Table Row -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -223,7 +228,7 @@
         <div class="col-lg-7 col-xl-8">
             <div class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
+                    <h6 class="text-primary fw-bold m-0">Bar Graph</h6>
                     <div class="dropdown no-arrow">
                         <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                             data-bs-toggle="dropdown" type="button">
@@ -246,8 +251,8 @@
                         <script>
                             const activecmpctx = document.getElementById('active-comp-chart');
 
-                            let totalStudentsOfWeek = [20, 20, 30, 40, 20, 30, 70];
-                            let middayMealStudentsOfWeek = [12, 19, 13, 25, 12, 23, 100];
+                            let totalStudentsOfWeek = [{{total_no_of_students}}, {{total_no_of_students}}, {{total_no_of_students}}, {{total_no_of_students}}, {{total_no_of_students}}, {{total_no_of_students}}];
+                            let middayMealStudentsOfWeek = [12, 19, 13, 25, 12, 23];
 
                             const activecmpChart = new Chart(activecmpctx, {
                                 type: 'bar',
@@ -315,7 +320,7 @@
         <div class="col-lg-7 col-xl-8">
             <div class="card shadow mb-4" id="lineChart1">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
+                    <h6 class="text-primary fw-bold m-0">PRE PRIMARY LINE GRAPH</h6>
                     <div class="dropdown no-arrow">
                         <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                             data-bs-toggle="dropdown" type="button">
@@ -414,7 +419,7 @@
         <div class="col-lg-7 col-xl-8">
             <div class="card shadow mb-4" id="lineChart2">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">Mean Calories</h6>
+                    <h6 class="text-primary fw-bold m-0">Classwise Attendance</h6>
                     <div class="dropdown no-arrow">
                         <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false"
                             data-bs-toggle="dropdown" type="button">
@@ -424,7 +429,7 @@
                             <p class="text-center dropdown-header">Graph</p>
                             <a class="dropdown-item" href="#">&nbsp;Details</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Mean Calories</a>
+                            <a class="dropdown-item" href="#">Classwise Attendance</a>
                         </div>
                     </div>
                 </div>
