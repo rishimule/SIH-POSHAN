@@ -61,10 +61,10 @@ def add_class(num=1):
     for _ in range(num):
         print(f'Now Adding -------> {_}')
         class_std = random.randint(1, 8)
-        class_name = fake.bothify(text=f"{class_std}?", letters='ABC')
+        class_name = fake.bothify(text=f"{class_std}?", letters='AB')
         year = random.randint(2022, 2023)
-        # school = School.objects.order_by('?').first()
-        school = School.objects.filter(name__icontains = 'adarsh').first()
+        school = School.objects.order_by('?').first()
+        # school = School.objects.filter(name__icontains = 'adarsh').first()
         try:
             myclass = Class(
                 class_std=class_std,
