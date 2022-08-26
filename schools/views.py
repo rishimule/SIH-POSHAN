@@ -13,7 +13,7 @@ from .models import Student, Class, School, Meal, Attendence, MealImage, HealthR
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from photocalpro.modelfile2 import return_calories_proteins
-from photocalpro.sample import run as return_calories_proteins_and_stuff
+# from photocalpro.sample import run as return_calories_proteins_and_stuff
 import datetime
 from django.db.models import Count, Avg
 from twilio.rest import Client as TwilioClient
