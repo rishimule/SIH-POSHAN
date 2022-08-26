@@ -1,5 +1,6 @@
 {% extends 'schools/base.html' %} {% block title %} Meal Details {% endblock title%} {% block content %}
 {% load crispy_forms_tags %}
+
 <div class="container-fluid">
     <div>
         <form method="post" enctype="multipart/form-data" action="">
@@ -18,6 +19,7 @@
                                     <hr />
                                 </div>
                                 <form method="POST" enctype="multipart/form-data">
+<<<<<<< HEAD
                                     <script type='text/javascript'>
                                         $(document).ready(function(){
                                         
@@ -30,6 +32,9 @@
                                         
                                         });
                                     </script>
+=======
+
+>>>>>>> c993ea07a5614acadc05221163f0bbb2d5e4851c
                                     {% load formcss %}
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
@@ -74,6 +79,8 @@
                                         class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
                                         alt="{{temp_meal_pic.meal_pic.url}}">
 
+                                    <br>
+
                                     <button formaction="{{next_action_url}}"
                                         class="btn btn-primary d-block btn-user w-100" type="submit">
                                         Upload Meal
@@ -85,8 +92,7 @@
                                         Upload Photo
                                     </button>
                                     {% endif %}
-                                    <!-- Datepicker Script -->
-                                    
+
                                 </form>
                             </div>
                         </div>
@@ -109,8 +115,8 @@
     function showPosition(position) {
         lat.value = position.coords.latitude;
         lon.value = position.coords.longitude;
-       }
-       
+    }
+
     var lat = document.getElementById("latitude");
     var lon = document.getElementById("longitude");
 

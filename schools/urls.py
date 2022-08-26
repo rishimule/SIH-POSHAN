@@ -1,3 +1,4 @@
+from re import template
 from django.urls import path, include, reverse_lazy
 from . import views
 
@@ -8,6 +9,7 @@ urlpatterns = [
     path('',                    views.dashboardView,                name='dashboard'),
     path('profile/',            views.profileView,                  name='profile'),
     path('update_profile_pic/', views.update_profile_pic,           name='update_profile_pic'),
+    path('location_not_found/', views.TemplateView.as_view(template_name = 'schools/location_not_found.html'),           name='location_not_found'),
     
     # MEAL
     path('todays_meal/',        views.mealCreateView,               name='todays_meal'),

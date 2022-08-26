@@ -27,18 +27,9 @@
                         <br>
                         Year : {{class.year}}
                     </h5>
-                    
-                    
-                <!-- <ul>
-                    {% for student in class.students.all %}
-                    <li>
-                        {{student}}
-                        <br>
-                    </li>
-                    {% endfor %}
-                </ul> -->
+            
                 </p>
-                <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-primary">Details</a>
+                <a href="{% url 'schools:class_detail' pk=class.id %}" class="btn btn-{% if class.class_std <= 5 %}success{% else %}secondary{% endif %}">Details</a>
                 <!-- <a onclick="confirm_delete_class('{{class.id}}');" class="btn btn-danger" role="button">Delete</a> -->
 
             </div>
