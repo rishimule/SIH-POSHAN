@@ -25,7 +25,7 @@
                                           dateFormat: "yy-mm-dd",
                                           maxDate:'+1m +10d',
                                           minDate: -10
-                                        
+                                                           
                                          });
                                         
                                         });
@@ -36,7 +36,7 @@
                                     {% for field in form %}
                                     <p>
                                     <div class="form-group">
-                                        <label for="{{field.id_for_label}}">{{ field.label }}
+                                        <label for="{{field.id_f_label}}">{{ field.label }}
                                             {% if field.field.required %}
                                             <span style="color: red ;">*</span>
                                             {% endif %}
@@ -115,7 +115,9 @@
     var lon = document.getElementById("longitude");
 
     console.log(navigator.geolocation.getCurrentPosition(showPosition));
-
+    
+    
+    
 
 
 </script>
