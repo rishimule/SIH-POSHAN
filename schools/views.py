@@ -235,7 +235,7 @@ def mealCreateView(request):
         
         temp_meal_pic = MealImage(meal_pic = request.FILES['meal_pic'])
         temp_meal_pic.save()
-        print(temp_meal_pic)
+        print(temp_meal_pic.meal_pic.url)
         
         health_data = return_calories_proteins(image=temp_meal_pic.meal_pic.url)
         print(health_data)
@@ -251,6 +251,10 @@ def mealCreateView(request):
         quantity = int(request.POST['quantity'])
         latitude = request.POST['latitude']
         longitude = request.POST['longitude']
+        
+        if latitude=="0":
+            return redirect('schools/location_not_found.html')
+            
         
         mealinstance = Meal(
             school = school,
@@ -414,7 +418,7 @@ class AttendenceView(TemplateView):
 
 def addAtt(request, date, myclass):
     thisclass = get_object_or_404(Class, pk=myclass)
-    student_list = thisclass.students.all()
+    student_list = thisclass.students.order_by('first_name').all()
     print(student_list)
     existing_record = Attendence.objects.filter(date=date).filter(student__in= student_list)
     print(existing_record)
@@ -455,6 +459,8 @@ def addAtt(request, date, myclass):
         context = {
             'new_record':new_record,
             'student_list':student_list,
+            'date' : date,
+            'thisclass':thisclass,
         }
     )
 

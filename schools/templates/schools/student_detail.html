@@ -5,15 +5,55 @@
 <div class="container">
     <div class="card shadow-lg">
         <div class="card-body">
-            <p>{{student}}</p>
-            <p>{{student.first_name}}</p>
-            <p>{{student.last_name}}</p>
-            <p>{{student.dob|date:"d/m/Y"}}</p>
-            <p>{{student.current_class}}</p>
-            <p>{{student.gr_no}}</p>
-            <p>{{student.gender}}</p>
-            <p>{{student.current_height}}</p>
-            <p>{{student.current_weight}}</p>
+          
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student Details:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>First Name:</td>
+                    <td style="width: 1000px;">{{student.first_name}}</td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td>{{student.last_name}}</td>
+                </tr>
+                <tr>
+                    <td>Std:</td>
+                    <td>{{student.current_class.class_std}}</td>
+                </tr>
+                <tr>
+                    <td>Div:</td>
+                    <td>{{student.current_class}}</td>
+                </tr>
+                <tr>
+                    <td>GR Number:</td>
+                    <td>{{student.gr_no}}</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td>{{student.dob|date:"d/m/Y"}}</td>
+                </tr>
+                <tr>
+                    <td>Current Height:</td>
+                    <td>{{student.current_height}} cm</td>
+                </tr>
+                <tr>
+                    <td>Current Weight:</td>
+                    <td>{{student.current_weight}} kg</td>
+                </tr>
+                <tr>
+                    <td>BMI:</td>
+                    <td>{{student.bmi|floatformat:2}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+</div>
             <p>
                 <a class="btn btn-info btn-icon-split" role="button" href="{% url 'schools:update_student' pk=student.pk %}">
                     <span class="text-white-50 icon">
