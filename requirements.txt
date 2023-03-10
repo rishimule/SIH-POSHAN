@@ -44,7 +44,6 @@ pip==22.2.2
 pipenv==2022.4.20
 pipreqs==0.4.11
 platformdirs==2.5.2
-psycopg2==2.8.6
 pybbn==3.2.1
 pycodestyle==2.8.0
 pycparser==2.21

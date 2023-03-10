@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'talukas',
     'schools',
     'bootstrap4',
-        'rest_framework',
+    'rest_framework',
     'corsheaders'
     
 ]
