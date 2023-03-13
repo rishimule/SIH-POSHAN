@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from django.core.management.commands.runserver import Command as runserver
+from merakiiextras.hostSettings import default_runserver_address
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-runserver.default_addr = '0.0.0.0'
+runserver.default_addr = default_runserver_address
 runserver.default_port = '8080'
 
 # Application definition
@@ -140,8 +141,8 @@ DATABASES = {
         'NAME': 'djangodbsih',
         'USER': 'sihdjangoadmin',
         'PASSWORD': 'Te@mMerak1',
-        'HOST': '43.205.168.182',
-        'PORT': '51399',
+        'HOST': '13.232.32.181',
+        'PORT': '53389',
     }
 
 }
