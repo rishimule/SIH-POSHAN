@@ -6,4 +6,4 @@ db.sqlite3
 groom.manifest
 staticfiles/*
 *.out
-
+merakiiextras/hostSettings.py
