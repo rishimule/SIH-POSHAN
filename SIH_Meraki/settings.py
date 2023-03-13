@@ -83,7 +83,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000'
 ]
     
 ROOT_URLCONF = 'SIH_Meraki.urls'
